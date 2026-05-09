@@ -711,7 +711,7 @@ body{font-family:'Barlow',sans-serif;background:#edf2f9;color:var(--text);min-he
 <div id="t-resumen" class="tab-panel">
   <button class="btn btn-primary" onclick="calcular();showToast('✅ Resumen actualizado')">🔄 Actualizar Resumen</button>
   <div id="resumen-completo"></div>
-  <button class="btn btn-green" onclick="enviarLevantamiento()" style="margin-top:10px">📧 Enviar por Correo</button>
+  <button class="btn btn-green" onclick="guardarYEnviar()" style="margin-top:10px">💾 Guardar y Enviar Correo</button>
   <button class="btn btn-primary" onclick="imprimirResumen()" style="margin-top:10px;background:#6b21a8">🖨️ Imprimir / PDF</button>
   <button class="btn btn-ghost" onclick="resetTodo()" style="margin-top:10px">↺ Nuevo Levantamiento</button>
 </div>
@@ -1026,6 +1026,46 @@ function resetTodo(){
   document.getElementById('resumen-completo').innerHTML='';
   calcular();
   showToast('↺ Levantamiento reiniciado');
+}
+
+// ═══ GUARDAR Y ENVIAR ═══
+function guardarYEnviar(){
+  calcular();
+  const proyecto=gv('p-nombre');
+  const cliente=gv('p-cliente');
+  if(!proyecto&&!cliente){showToast('Añade el nombre del proyecto o cliente');return;}
+
+  const sel=FLUIDOS.filter(f=>gc(f.id));
+  const totalCarretes=sel.filter(f=>f.tipo!=='engrasadora').reduce((a,f)=>a+(gn(f.id+'-dep')||1),0)+gn('eq-carretes-extra');
+  const uvalve=totalCarretes+gn('eq-uvalve');
+  const fuentesPoder=Math.ceil((totalCarretes+uvalve)/8)||1;
+  const diasTrab=parseInt(document.querySelector('.ibox.green strong')?.textContent?.match(/Días estimados: (\d+)/)?.[1])||0;
+
+  const record={
+    id:Date.now(),
+    fecha:gv('p-fecha')||new Date().toISOString().split('T')[0],
+    tecnico:gv('p-tecnico')||'—',
+    proyecto:proyecto||'—',
+    cliente:cliente||'—',
+    orden:gv('p-orden')||'—',
+    ciudad:gv('p-ciudad')||'—',
+    fluidos:sel.length,
+    carretes:totalCarretes,
+    uvalve:uvalve,
+    fuentesPoder:fuentesPoder,
+    dias:diasTrab,
+    notas:gv('l-notas')||'',
+  };
+
+  // Guardar en historial local
+  let history=JSON.parse(localStorage.getItem('samoa_levantamiento')||'[]');
+  history.unshift(record);
+  localStorage.setItem('samoa_levantamiento',JSON.stringify(history));
+
+  // Enviar correo
+  enviarLevantamiento();
+
+  showToast('✅ Levantamiento guardado y correo enviado');
 }
 
 // ═══ EMAIL LEVANTAMIENTO ═══
