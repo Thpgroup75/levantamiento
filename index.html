@@ -4,31 +4,43 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>SAMOA · Levantamiento Técnico</title>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init('3pMIyzau-iTDemYzC');</script>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --blue:#1a56a0;--blue-dark:#0f3a72;--blue-light:#e8f1fb;--accent:#f5a623;
   --green:#00A86B;--green-light:#e6f7f2;--red:#E8003D;--red-light:#fff0f3;
-  --orange:#e87000;--orange-light:#fff5e6;--purple:#6b21a8;
+  --orange:#e87000;--orange-light:#fff5e6;--purple:#6b21a8;--purple-light:#f5f0ff;
   --gray:#8a9ab0;--gray-light:#f4f7fb;--border:#d1daea;
   --text:#1a2540;--text-light:#5a6a82;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body{font-family:'Barlow',sans-serif;background:#edf2f9;color:var(--text);min-height:100vh;}
+
+/* HEADER */
 .header{background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:white;padding:0;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,0.2);}
 .header-top{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.12);}
 .logo{background:white;color:var(--blue);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:18px;padding:6px 12px;border-radius:6px;flex-shrink:0;}
+.htitle{flex:1;}
 .htitle h1{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;}
 .htitle p{font-size:11px;opacity:0.65;margin-top:1px;}
+
+/* TABS */
 .tabs{display:flex;overflow-x:auto;padding:0 16px;border-bottom:2px solid rgba(255,255,255,0.15);scrollbar-width:none;}
 .tabs::-webkit-scrollbar{display:none;}
 .tab{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;padding:9px 13px;background:transparent;color:rgba(255,255,255,0.5);border:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;text-transform:uppercase;}
 .tab.active{color:white;border-bottom-color:var(--accent);}
+
+/* CONTENT */
 .content{padding:14px;max-width:900px;margin:0 auto;}
 .tab-panel{display:none;}
 .tab-panel.active{display:block;}
+
+/* CARD */
 .card{background:white;border-radius:14px;border:1.5px solid var(--border);margin-bottom:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,40,100,0.05);}
-.card-hdr{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--gray-light);border-bottom:1.5px solid var(--border);cursor:pointer;}
+.card-hdr{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--gray-light);border-bottom:1.5px solid var(--border);cursor:pointer;user-select:none;}
+.card-hdr:active{background:#dde6f5;}
 .cicon{width:34px;height:34px;border-radius:8px;background:var(--blue);color:white;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .cicon.orange{background:var(--orange);}
 .cicon.green{background:var(--green);}
@@ -41,6 +53,8 @@ body{font-family:'Barlow',sans-serif;background:#edf2f9;color:var(--text);min-he
 .card.open .carrow{transform:rotate(180deg);}
 .card-body{display:none;padding:16px;}
 .card.open .card-body{display:block;}
+
+/* FORM */
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
 .fgrid.one{grid-template-columns:1fr;}
 .fgrid.three{grid-template-columns:1fr 1fr 1fr;}
@@ -49,32 +63,67 @@ body{font-family:'Barlow',sans-serif;background:#edf2f9;color:var(--text);min-he
 .ffield input,.ffield select,.ffield textarea{border:1.5px solid var(--border);border-radius:8px;padding:9px 11px;font-family:'Barlow',sans-serif;font-size:14px;color:var(--text);outline:none;background:var(--gray-light);width:100%;}
 .ffield input:focus,.ffield select:focus,.ffield textarea:focus{border-color:var(--blue);background:white;}
 .ffield textarea{min-height:70px;resize:vertical;}
+
+/* FLUID ROW */
 .fluid-row{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #f0f4fa;}
 .fluid-row:last-child{border-bottom:none;}
 .fluid-name{font-size:13px;font-weight:600;color:var(--text);}
 .fluid-sub{font-size:11px;color:var(--gray);margin-top:2px;}
 .fluid-input{border:1.5px solid var(--border);border-radius:6px;padding:7px 8px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--text);outline:none;background:var(--gray-light);width:100%;}
+.fluid-input:focus{border-color:var(--blue);background:white;}
 .fluid-check{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;}
 .fluid-check input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:var(--blue);}
+
+/* RESULT CARD */
+.result-card{background:linear-gradient(135deg,var(--blue-dark),var(--blue));border-radius:14px;padding:20px;color:white;margin-bottom:14px;}
+.result-card h2{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.result-section{margin-bottom:16px;}
+.result-section h3{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.15);padding-bottom:4px;}
+.result-item{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:13px;}
+.result-item:last-child{border-bottom:none;}
+.result-item span:first-child{color:rgba(255,255,255,0.75);}
+.result-item span:last-child{font-weight:700;color:white;}
+.result-highlight{background:rgba(255,255,255,0.15);border-radius:8px;padding:10px 14px;margin-top:8px;}
+.result-highlight .num{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;color:var(--accent);}
+.result-highlight .lbl{font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px;}
+
+/* IBOX */
 .ibox{border-radius:8px;padding:10px 14px;font-size:12px;line-height:1.5;margin-bottom:12px;}
 .ibox.blue{background:var(--blue-light);border:1.5px solid #bdd4f5;color:var(--blue-dark);}
 .ibox.orange{background:var(--orange-light);border:1.5px solid #ffd0a0;color:#7a3800;}
 .ibox.green{background:var(--green-light);border:1.5px solid #a0e0c8;color:#005535;}
+
+/* CHECKLIST SIMPLE */
 .check-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f0f4fa;cursor:pointer;}
 .check-item:last-child{border-bottom:none;}
 .check-item input[type=checkbox]{width:20px;height:20px;cursor:pointer;accent-color:var(--blue);flex-shrink:0;}
 .check-item label{font-size:13px;color:var(--text);cursor:pointer;flex:1;line-height:1.4;}
+
+/* BTN */
 .btn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;padding:14px 20px;border-radius:10px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-bottom:10px;}
 .btn-primary{background:var(--blue);color:white;}
 .btn-green{background:var(--green);color:white;}
+.btn-orange{background:var(--orange);color:white;}
 .btn-ghost{background:white;color:var(--blue);border:2px solid var(--blue);}
-.sub-hdr{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--gray);padding:7px 0 4px;border-bottom:1px solid #f0f4fa;margin-bottom:8px;}
+
+/* SUMMARY GRID */
+.sum-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.sum-badge{background:white;border-radius:10px;padding:12px 8px;border:1.5px solid var(--border);text-align:center;box-shadow:0 2px 5px rgba(0,40,100,0.05);}
+.sum-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:24px;color:var(--blue);line-height:1;}
+.sum-lbl{font-size:9px;color:var(--gray);font-weight:600;text-transform:uppercase;letter-spacing:0.3px;margin-top:3px;}
+
+/* TOAST */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:#1a2540;color:white;padding:12px 20px;border-radius:10px;font-size:14px;font-family:'Barlow Condensed',sans-serif;font-weight:600;z-index:999;transition:transform 0.35s;white-space:nowrap;pointer-events:none;}
 .toast.show{transform:translateX(-50%) translateY(0);}
-@media(max-width:480px){.fgrid.three{grid-template-columns:1fr 1fr}.fluid-row{grid-template-columns:1fr 1fr;gap:6px}}
+
+/* SUB HDR */
+.sub-hdr{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--gray);padding:7px 0 4px;border-bottom:1px solid #f0f4fa;margin-bottom:8px;}
+
+@media(max-width:480px){.fgrid.three{grid-template-columns:1fr 1fr}.fluid-row{grid-template-columns:1fr 1fr;gap:6px}.sum-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
+
 <div class="header">
   <div class="header-top">
     <div class="logo">SAMOA</div>
@@ -95,11 +144,15 @@ body{font-family:'Barlow',sans-serif;background:#edf2f9;color:var(--text);min-he
 
 <div class="content">
 
-<!-- PROYECTO -->
+<!-- ══════════ TAB: PROYECTO ══════════ -->
 <div id="t-proyecto" class="tab-panel active">
+  <div class="ibox blue">Datos generales del proyecto de instalación SAMOA.</div>
+
   <div class="card open" id="c-proyecto">
     <div class="card-hdr" onclick="toggleCard('c-proyecto')">
-      <div class="cicon gray">📋</div><div class="ctitle">Datos del Proyecto</div><div class="carrow">▼</div>
+      <div class="cicon gray">📋</div>
+      <div class="ctitle">Datos del Proyecto</div>
+      <div class="carrow">▼</div>
     </div>
     <div class="card-body">
       <div class="fgrid">
@@ -107,527 +160,926 @@ body{font-family:'Barlow',sans-serif;background:#edf2f9;color:var(--text);min-he
         <div class="ffield"><label>Nº Orden / Proyecto</label><input type="text" id="p-orden" placeholder="OT-00123"></div>
         <div class="ffield"><label>Cliente</label><input type="text" id="p-cliente" placeholder="Nombre del cliente"></div>
         <div class="ffield"><label>Contacto en sitio</label><input type="text" id="p-contacto" placeholder="Nombre y cargo"></div>
-        <div class="ffield"><label>Dirección</label><input type="text" id="p-direccion" placeholder="Dirección completa"></div>
+        <div class="ffield"><label>Dirección / Ubicación</label><input type="text" id="p-direccion" placeholder="Dirección completa"></div>
         <div class="ffield"><label>Ciudad / País</label><input type="text" id="p-ciudad" placeholder="Ciudad, País"></div>
-        <div class="ffield"><label>Fecha levantamiento</label><input type="date" id="p-fecha"></div>
+        <div class="ffield"><label>Fecha de levantamiento</label><input type="date" id="p-fecha"></div>
         <div class="ffield"><label>Técnico responsable</label>
           <select id="p-tecnico">
             <option value="">— Seleccionar —</option>
-            <option>Gustavo Rodríguez</option><option>Manuel Fernández</option>
-            <option>Edgardo González</option><option>Abel Cáceres</option>
-            <option>Bélgica Vergara</option><option>Otro</option>
+            <option>Gustavo Rodríguez</option>
+            <option>Manuel Fernández</option>
+            <option>Edgardo González</option>
+            <option>Abel Cáceres</option>
+            <option>Bélgica Vergara</option>
+            <option>Otro</option>
           </select>
         </div>
       </div>
       <div class="fgrid one">
-        <div class="ffield"><label>Descripción del taller</label>
+        <div class="ffield"><label>Descripción del taller / instalación</label>
           <textarea id="p-descripcion" placeholder="Tipo de taller, actividad principal, número de bahías, equipos actuales..."></textarea>
         </div>
       </div>
     </div>
   </div>
+
   <div class="card open" id="c-taller">
     <div class="card-hdr" onclick="toggleCard('c-taller')">
-      <div class="cicon">🏭</div><div class="ctitle">Dimensiones del Taller</div><div class="carrow">▼</div>
+      <div class="cicon blue">🏭</div>
+      <div class="ctitle">Dimensiones del Taller</div>
+      <div class="carrow">▼</div>
     </div>
     <div class="card-body">
       <div class="fgrid three">
-        <div class="ffield"><label>Largo (m)</label><input type="number" id="t-largo" placeholder="0" oninput="calcular()"></div>
-        <div class="ffield"><label>Ancho (m)</label><input type="number" id="t-ancho" placeholder="0" oninput="calcular()"></div>
-        <div class="ffield"><label>Altura (m)</label><input type="number" id="t-altura" placeholder="0"></div>
-        <div class="ffield"><label>Nº de bahías</label><input type="number" id="t-bahias" placeholder="0" oninput="calcular()"></div>
+        <div class="ffield"><label>Largo del taller (m)</label><input type="number" id="t-largo" placeholder="0" oninput="calcular()"></div>
+        <div class="ffield"><label>Ancho del taller (m)</label><input type="number" id="t-ancho" placeholder="0" oninput="calcular()"></div>
+        <div class="ffield"><label>Altura del taller (m)</label><input type="number" id="t-altura" placeholder="0" oninput="calcular()"></div>
+        <div class="ffield"><label>Nº de bahías / puestos</label><input type="number" id="t-bahias" placeholder="0" oninput="calcular()"></div>
         <div class="ffield"><label>Área técnica separada</label>
-          <select id="t-area-tec" onchange="calcular()"><option value="no">No — misma área</option><option value="si">Sí — área separada</option></select>
+          <select id="t-area-tec" onchange="calcular()">
+            <option value="no">No — misma área</option>
+            <option value="si">Sí — área separada</option>
+          </select>
         </div>
         <div class="ffield"><label>Distancia área técnica → despacho (m)</label><input type="number" id="t-distancia" placeholder="0" oninput="calcular()"></div>
       </div>
       <div class="fgrid">
         <div class="ffield"><label>Tipo de piso</label>
-          <select id="t-piso"><option>Concreto</option><option>Epóxico</option><option>Madera</option><option>Otro</option></select>
+          <select id="t-piso">
+            <option>Concreto</option><option>Epóxico</option><option>Madera</option><option>Otro</option>
+          </select>
         </div>
         <div class="ffield"><label>Tipo de paredes</label>
-          <select id="t-paredes"><option>Concreto / Bloque</option><option>Metal / Panel</option><option>Madera</option><option>Mixto</option></select>
+          <select id="t-paredes">
+            <option>Concreto / Bloque</option><option>Metal / Panel</option><option>Madera</option><option>Mixto</option>
+          </select>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- FLUIDOS -->
+<!-- ══════════ TAB: FLUIDOS ══════════ -->
 <div id="t-fluidos" class="tab-panel">
-  <div class="ibox blue">Selecciona los fluidos. Indica depósitos y capacidad de cada uno.</div>
+  <div class="ibox blue">Selecciona los fluidos que se manejarán en la instalación. Ingresa la cantidad de depósitos y capacidad de cada uno.</div>
+
   <div class="card open" id="c-fluidos">
     <div class="card-hdr" onclick="toggleCard('c-fluidos')">
-      <div class="cicon dark">🛢️</div><div class="ctitle">Fluidos a Manejar</div><div class="carrow">▼</div>
+      <div class="cicon dark">🛢️</div>
+      <div class="ctitle">Fluidos a Manejar</div>
+      <div class="carrow">▼</div>
     </div>
     <div class="card-body">
-      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:8px;padding:6px 0;border-bottom:2px solid var(--border);margin-bottom:4px;">
-        <div style="font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase">Fluido</div>
-        <div style="font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase">¿Incluir?</div>
-        <div style="font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase">Depósitos</div>
-        <div style="font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase">Capacidad (L)</div>
-      </div>
+
+      <!-- Aceites Motor -->
       <div class="sub-hdr">🔵 Aceites de Motor</div>
-      <div class="fluid-row"><div><div class="fluid-name">Aceite Motor Multi-grado</div><div class="fluid-sub">Relación bomba 5:1</div></div><div><label class="fluid-check"><input type="checkbox" id="fl-am1" onchange="calcular()"> Sí</label></div><div><input type="number" class="fluid-input" id="fl-am1-dep" placeholder="0" min="0" oninput="calcular()"></div><div><input type="number" class="fluid-input" id="fl-am1-cap" placeholder="0" oninput="calcular()"></div></div>
-      <div class="fluid-row"><div><div class="fluid-name">Aceite Motor Sintético</div><div class="fluid-sub">Relación bomba 5:1</div></div><div><label class="fluid-check"><input type="checkbox" id="fl-am2" onchange="calcular()"> Sí</label></div><div><input type="number" class="fluid-input" id="fl-am2-dep" placeholder="0" oninput="calcular()"></div><div><input type="number" class="fluid-input" id="fl-am2-cap" placeholder="0" oninput="calcular()"></div></div>
-      <div class="fluid-row"><div><div class="fluid-name">Aceite Diesel / Heavy Duty</div><div class="fluid-sub">Relación bomba 5:1</div></div><div><label class="fluid-check"><input type="checkbox" id="fl-am3" onchange="calcular()"> Sí</label></div><div><input type="number" class="fluid-input" id="fl-am3-dep" placeholder="0" oninput="calcular()"></div><div><input type="number" class="fluid-input" id="fl-am3-cap" placeholder="0" oninput="calcular()"></div></div>
-      <div class="sub-hdr" style="margin-top:8px">🟡 Aceites de Transmisión</div>
-      <div class="fluid-row"><div><div class="fluid-name">Aceite ATF (Transmisión Auto)</div><div class="fluid-sub">Relación bomba 5:1</div></div><div><label class="fluid-check"><input type="checkbox" id="fl-atf" onchange="calcular()"> Sí</label></div><div><input type="number" class="fluid-input" id="fl-atf-dep" placeholder="0" oninput="calcular()"></div><div><input type="number" class="fluid-input" id="fl-atf-cap" placeholder="0" oninput="calcular()"></div></div>
-      <div class="fluid-row"><div><div class="fluid-name">Aceite Transmisión Manual</div><div class="fluid-sub">Relación bomba 10:1</div></div><div><label class="fluid-check"><input type="checkbox" id="fl-atm" onchange="calcular()"> Sí</label></div><div><input type="number" class="fluid-input" id="fl-atm-dep" placeholder="0" oninput="calcular()"></div><div><input type="number" class="fluid-input" id="fl-atm-cap" placeholder="0" oninput="calcular()"></div></div>
-      <div class="fluid-row"><div><div class="fluid-name">Aceite Diferencial</div><div class="fluid-sub">Relación bomba 10:1</div></div><div><label class="fluid-check"><input type="checkbox" id="fl-dif" onchange="calcular()"> Sí</label></div><div><input type="number" class="fluid-input" id="fl-dif-dep" placeholder="0" oninput="calcular()"></div><div><input type="number" class="fluid-input" id="fl-dif-cap" placeholder="0" oninput="calcular()"></div></div>
-      <div class="fluid-row"><div><div class="fluid-name">Aceite Hidráulico</div><div class="fluid-sub">Relación bomba 5:1</div></div><div><label class="fluid-check"><input type="checkbox" id="fl-hid" onchange="calcular()"> Sí</label></div><div><input type="number" class="fluid-input" id="fl-hid-dep" placeholder="0" oninput="calcular()"></div><div><input type="number" class="fluid-input" id="fl-hid-cap" placeholder="0" oninput="calcular()"></div></div>
-      <div class="sub-hdr" style="margin-top:8px">🔵 Refrigerante / Coolant</div>
-      <div class="fluid-row"><div><div class="fluid-name">Coolant / Anticongelante</div><div class="fluid-sub">Relación bomba 3:1</div></div><div><label class="fluid-check"><input type="checkbox" id="fl-cool" onchange="calcular()"> Sí</label></div><div><input type="number" class="fluid-input" id="fl-cool-dep" placeholder="0" oninput="calcular()"></div><div><input type="number" class="fluid-input" id="fl-cool-cap" placeholder="0" oninput="calcular()"></div></div>
-      <div class="sub-hdr" style="margin-top:8px">🟤 Grasa</div>
-      <div class="fluid-row"><div><div class="fluid-name">Grasa NLGI 2</div><div class="fluid-sub">Engrasadora 50:1</div></div><div><label class="fluid-check"><input type="checkbox" id="fl-grasa" onchange="calcular()"> Sí</label></div><div><input type="number" class="fluid-input" id="fl-grasa-dep" placeholder="0" oninput="calcular()"></div><div><input type="number" class="fluid-input" id="fl-grasa-cap" placeholder="kg" oninput="calcular()"></div></div>
-      <div class="sub-hdr" style="margin-top:8px">💧 AdBlue / DEF</div>
-      <div class="fluid-row"><div><div class="fluid-name">AdBlue / DEF</div><div class="fluid-sub">Bomba membrana 3:1</div></div><div><label class="fluid-check"><input type="checkbox" id="fl-adblue" onchange="calcular()"> Sí</label></div><div><input type="number" class="fluid-input" id="fl-adblue-dep" placeholder="0" oninput="calcular()"></div><div><input type="number" class="fluid-input" id="fl-adblue-cap" placeholder="0" oninput="calcular()"></div></div>
-      <div class="sub-hdr" style="margin-top:8px">⬛ Aceite Usado</div>
-      <div class="fluid-row"><div><div class="fluid-name">Recuperador Aceite Usado</div><div class="fluid-sub">Bomba vacío/membrana</div></div><div><label class="fluid-check"><input type="checkbox" id="fl-usado" onchange="calcular()"> Sí</label></div><div><input type="number" class="fluid-input" id="fl-usado-dep" placeholder="0" oninput="calcular()"></div><div><input type="number" class="fluid-input" id="fl-usado-cap" placeholder="0" oninput="calcular()"></div></div>
-      <div class="sub-hdr" style="margin-top:8px">⛽ Otros</div>
-      <div class="fluid-row"><div><div class="fluid-name">Diesel / Gasoil</div><div class="fluid-sub">Relación bomba 3:1</div></div><div><label class="fluid-check"><input type="checkbox" id="fl-diesel" onchange="calcular()"> Sí</label></div><div><input type="number" class="fluid-input" id="fl-diesel-dep" placeholder="0" oninput="calcular()"></div><div><input type="number" class="fluid-input" id="fl-diesel-cap" placeholder="0" oninput="calcular()"></div></div>
-      <div class="fluid-row"><div><div class="fluid-name">Líquido de Frenos DOT</div><div class="fluid-sub">Relación bomba 3:1</div></div><div><label class="fluid-check"><input type="checkbox" id="fl-frenos" onchange="calcular()"> Sí</label></div><div><input type="number" class="fluid-input" id="fl-frenos-dep" placeholder="0" oninput="calcular()"></div><div><input type="number" class="fluid-input" id="fl-frenos-cap" placeholder="0" oninput="calcular()"></div></div>
-      <div class="fluid-row"><div><div class="fluid-name">Limpiaparabrisas</div><div class="fluid-sub">Relación bomba 3:1</div></div><div><label class="fluid-check"><input type="checkbox" id="fl-wash" onchange="calcular()"> Sí</label></div><div><input type="number" class="fluid-input" id="fl-wash-dep" placeholder="0" oninput="calcular()"></div><div><input type="number" class="fluid-input" id="fl-wash-cap" placeholder="0" oninput="calcular()"></div></div>
+      <div id="aceites-motor-list">
+        <div class="fluid-row">
+          <div><div class="fluid-name">Aceite Motor</div><div class="fluid-sub">Multi grado</div></div>
+          <div><label style="font-size:10px;color:var(--gray)">¿Incluir?</label><label class="fluid-check"><input type="checkbox" id="fl-am1" onchange="calcular()"> Sí</label></div>
+          <div><label style="font-size:10px;color:var(--gray)">Depósitos</label><input type="number" class="fluid-input" id="fl-am1-dep" placeholder="0" min="0" oninput="calcular()"></div>
+          <div><label style="font-size:10px;color:var(--gray)">Capacidad (L)</label><input type="number" class="fluid-input" id="fl-am1-cap" placeholder="0" oninput="calcular()"></div>
+        </div>
+        <div class="fluid-row">
+          <div><div class="fluid-name">Aceite Motor Sintético</div><div class="fluid-sub">Plena síntesis</div></div>
+          <div><label class="fluid-check"><input type="checkbox" id="fl-am2" onchange="calcular()"> Sí</label></div>
+          <div><input type="number" class="fluid-input" id="fl-am2-dep" placeholder="0" oninput="calcular()"></div>
+          <div><input type="number" class="fluid-input" id="fl-am2-cap" placeholder="0" oninput="calcular()"></div>
+        </div>
+        <div class="fluid-row">
+          <div><div class="fluid-name">Aceite Diesel / Heavy Duty</div><div class="fluid-sub">CH-4, CI-4, CK-4</div></div>
+          <div><label class="fluid-check"><input type="checkbox" id="fl-am3" onchange="calcular()"> Sí</label></div>
+          <div><input type="number" class="fluid-input" id="fl-am3-dep" placeholder="0" oninput="calcular()"></div>
+          <div><input type="number" class="fluid-input" id="fl-am3-cap" placeholder="0" oninput="calcular()"></div>
+        </div>
+      </div>
+
+      <!-- Transmisión -->
+      <div class="sub-hdr" style="margin-top:12px">🟡 Aceites de Transmisión</div>
+      <div class="fluid-row">
+        <div><div class="fluid-name">Aceite Transmisión ATF</div><div class="fluid-sub">Automática</div></div>
+        <div><label class="fluid-check"><input type="checkbox" id="fl-atf" onchange="calcular()"> Sí</label></div>
+        <div><input type="number" class="fluid-input" id="fl-atf-dep" placeholder="0" oninput="calcular()"></div>
+        <div><input type="number" class="fluid-input" id="fl-atf-cap" placeholder="0" oninput="calcular()"></div>
+      </div>
+      <div class="fluid-row">
+        <div><div class="fluid-name">Aceite Transmisión Manual</div><div class="fluid-sub">75W-90, 80W-90</div></div>
+        <div><label class="fluid-check"><input type="checkbox" id="fl-atm" onchange="calcular()"> Sí</label></div>
+        <div><input type="number" class="fluid-input" id="fl-atm-dep" placeholder="0" oninput="calcular()"></div>
+        <div><input type="number" class="fluid-input" id="fl-atm-cap" placeholder="0" oninput="calcular()"></div>
+      </div>
+      <div class="fluid-row">
+        <div><div class="fluid-name">Aceite Diferencial</div><div class="fluid-sub">SAE 90, 140</div></div>
+        <div><label class="fluid-check"><input type="checkbox" id="fl-dif" onchange="calcular()"> Sí</label></div>
+        <div><input type="number" class="fluid-input" id="fl-dif-dep" placeholder="0" oninput="calcular()"></div>
+        <div><input type="number" class="fluid-input" id="fl-dif-cap" placeholder="0" oninput="calcular()"></div>
+      </div>
+      <div class="fluid-row">
+        <div><div class="fluid-name">Aceite Hidráulico</div><div class="fluid-sub">ISO VG 46, 68</div></div>
+        <div><label class="fluid-check"><input type="checkbox" id="fl-hid" onchange="calcular()"> Sí</label></div>
+        <div><input type="number" class="fluid-input" id="fl-hid-dep" placeholder="0" oninput="calcular()"></div>
+        <div><input type="number" class="fluid-input" id="fl-hid-cap" placeholder="0" oninput="calcular()"></div>
+      </div>
+
+      <!-- Refrigerante -->
+      <div class="sub-hdr" style="margin-top:12px">🔵 Refrigerante / Coolant</div>
+      <div class="fluid-row">
+        <div><div class="fluid-name">Coolant / Anticongelante</div><div class="fluid-sub">Etilénglicol base</div></div>
+        <div><label class="fluid-check"><input type="checkbox" id="fl-cool" onchange="calcular()"> Sí</label></div>
+        <div><input type="number" class="fluid-input" id="fl-cool-dep" placeholder="0" oninput="calcular()"></div>
+        <div><input type="number" class="fluid-input" id="fl-cool-cap" placeholder="0" oninput="calcular()"></div>
+      </div>
+      <div class="fluid-row">
+        <div><div class="fluid-name">Agua desmineralizada</div><div class="fluid-sub">Para dilución coolant</div></div>
+        <div><label class="fluid-check"><input type="checkbox" id="fl-agua" onchange="calcular()"> Sí</label></div>
+        <div><input type="number" class="fluid-input" id="fl-agua-dep" placeholder="0" oninput="calcular()"></div>
+        <div><input type="number" class="fluid-input" id="fl-agua-cap" placeholder="0" oninput="calcular()"></div>
+      </div>
+
+      <!-- Grasa -->
+      <div class="sub-hdr" style="margin-top:12px">🟤 Grasa</div>
+      <div class="fluid-row">
+        <div><div class="fluid-name">Grasa NLGI 2</div><div class="fluid-sub">Multi-propósito</div></div>
+        <div><label class="fluid-check"><input type="checkbox" id="fl-grasa" onchange="calcular()"> Sí</label></div>
+        <div><input type="number" class="fluid-input" id="fl-grasa-dep" placeholder="0" oninput="calcular()"></div>
+        <div><input type="number" class="fluid-input" id="fl-grasa-cap" placeholder="kg" oninput="calcular()"></div>
+      </div>
+
+      <!-- AdBlue -->
+      <div class="sub-hdr" style="margin-top:12px">💧 AdBlue / DEF</div>
+      <div class="fluid-row">
+        <div><div class="fluid-name">AdBlue / DEF</div><div class="fluid-sub">Urea 32.5%</div></div>
+        <div><label class="fluid-check"><input type="checkbox" id="fl-adblue" onchange="calcular()"> Sí</label></div>
+        <div><input type="number" class="fluid-input" id="fl-adblue-dep" placeholder="0" oninput="calcular()"></div>
+        <div><input type="number" class="fluid-input" id="fl-adblue-cap" placeholder="0" oninput="calcular()"></div>
+      </div>
+
+      <!-- Aceite Usado -->
+      <div class="sub-hdr" style="margin-top:12px">⬛ Aceite Usado / Recuperación</div>
+      <div class="fluid-row">
+        <div><div class="fluid-name">Recuperador Aceite Usado</div><div class="fluid-sub">Evacuación por vacío</div></div>
+        <div><label class="fluid-check"><input type="checkbox" id="fl-usado" onchange="calcular()"> Sí</label></div>
+        <div><input type="number" class="fluid-input" id="fl-usado-dep" placeholder="0" oninput="calcular()"></div>
+        <div><input type="number" class="fluid-input" id="fl-usado-cap" placeholder="0" oninput="calcular()"></div>
+      </div>
+
+      <!-- Diesel -->
+      <div class="sub-hdr" style="margin-top:12px">⛽ Combustible</div>
+      <div class="fluid-row">
+        <div><div class="fluid-name">Diesel / Gasoil</div><div class="fluid-sub">Abastecimiento</div></div>
+        <div><label class="fluid-check"><input type="checkbox" id="fl-diesel" onchange="calcular()"> Sí</label></div>
+        <div><input type="number" class="fluid-input" id="fl-diesel-dep" placeholder="0" oninput="calcular()"></div>
+        <div><input type="number" class="fluid-input" id="fl-diesel-cap" placeholder="0" oninput="calcular()"></div>
+      </div>
+
+      <!-- Líquido de frenos -->
+      <div class="sub-hdr" style="margin-top:12px">🔴 Otros Fluidos</div>
+      <div class="fluid-row">
+        <div><div class="fluid-name">Líquido de Frenos</div><div class="fluid-sub">DOT 3, DOT 4</div></div>
+        <div><label class="fluid-check"><input type="checkbox" id="fl-frenos" onchange="calcular()"> Sí</label></div>
+        <div><input type="number" class="fluid-input" id="fl-frenos-dep" placeholder="0" oninput="calcular()"></div>
+        <div><input type="number" class="fluid-input" id="fl-frenos-cap" placeholder="0" oninput="calcular()"></div>
+      </div>
+      <div class="fluid-row">
+        <div><div class="fluid-name">Líquido Limpiaparabrisas</div><div class="fluid-sub">Washer fluid</div></div>
+        <div><label class="fluid-check"><input type="checkbox" id="fl-wash" onchange="calcular()"> Sí</label></div>
+        <div><input type="number" class="fluid-input" id="fl-wash-dep" placeholder="0" oninput="calcular()"></div>
+        <div><input type="number" class="fluid-input" id="fl-wash-cap" placeholder="0" oninput="calcular()"></div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- EQUIPOS -->
+<!-- ══════════ TAB: EQUIPOS ══════════ -->
 <div id="t-equipos" class="tab-panel">
-  <div class="card open" id="c-carretes">
-    <div class="card-hdr" onclick="toggleCard('c-carretes')">
-      <div class="cicon">🌀</div><div class="ctitle">Enrolladores / Carretes</div><div class="carrow">▼</div>
+  <div class="ibox blue">Configura los equipos SAMOA necesarios según los fluidos y el taller.</div>
+
+  <!-- BOMBAS -->
+  <div class="card open" id="c-bombas">
+    <div class="card-hdr" onclick="toggleCard('c-bombas')">
+      <div class="cicon orange">🔧</div>
+      <div class="ctitle">Bombas Neumáticas</div>
+      <div class="carrow">▼</div>
     </div>
     <div class="card-body">
-      <div id="carretes-resultado"></div>
+      <div class="ibox orange">Relaciones SAMOA disponibles: 3:1 (aceites ligeros) · 5:1 (aceites motor) · 10:1 (aceites viscosos) · 30:1 (grasas semilíquidas) · 50:1 (grasas duras) · 65:1 (grasas muy duras)</div>
+      <div id="bombas-resultado" style="margin-bottom:12px"></div>
+      <div class="sub-hdr">Configuración manual adicional</div>
       <div class="fgrid three">
-        <div class="ffield"><label>Dist. entre carretes (m)</label><input type="number" id="eq-dist-carretes" value="3" oninput="calcular()"></div>
-        <div class="ffield"><label>Dist. carrete → bomba (m)</label><input type="number" id="eq-dist-bomba" value="5" oninput="calcular()"></div>
-        <div class="ffield"><label>Long. manguera carrete</label>
-          <select id="eq-long-manguera" onchange="calcular()"><option value="8">8m</option><option value="12">12m</option><option value="15" selected>15m</option><option value="20">20m</option></select>
+        <div class="ffield"><label>Bombas de pistón adicionales</label><input type="number" id="eq-bombas-piston" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Bombas de membrana adicionales</label><input type="number" id="eq-bombas-membrana" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Engrasadoras adicionales</label><input type="number" id="eq-engrasadoras" placeholder="0" oninput="calcular()" min="0"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARRETES -->
+  <div class="card open" id="c-carretes">
+    <div class="card-hdr" onclick="toggleCard('c-carretes')">
+      <div class="cicon blue">🌀</div>
+      <div class="ctitle">Enrolladores / Carretes</div>
+      <div class="carrow">▼</div>
+    </div>
+    <div class="card-body">
+      <div id="carretes-resultado" style="margin-bottom:12px"></div>
+      <div class="sub-hdr">Distancias entre carretes</div>
+      <div class="fgrid three">
+        <div class="ffield"><label>Distancia entre carretes (m)</label><input type="number" id="eq-dist-carretes" placeholder="3" oninput="calcular()" min="0" value="3"></div>
+        <div class="ffield"><label>Distancia carrete → bomba (m)</label><input type="number" id="eq-dist-bomba" placeholder="5" oninput="calcular()" min="0" value="5"></div>
+        <div class="ffield"><label>Longitud manguera carrete (m)</label>
+          <select id="eq-long-manguera" onchange="calcular()">
+            <option value="8">8 m (estándar)</option>
+            <option value="12">12 m</option>
+            <option value="15" selected>15 m</option>
+            <option value="20">20 m</option>
+          </select>
         </div>
+      </div>
+      <div class="fgrid">
         <div class="ffield"><label>Tipo de fijación</label>
-          <select id="eq-fijacion"><option value="pared">Pared</option><option value="columna">Columna</option><option value="portico">Pórtico</option><option value="mixto">Mixto</option></select>
+          <select id="eq-fijacion" onchange="calcular()">
+            <option value="pared">Pared</option>
+            <option value="columna">Columna</option>
+            <option value="portico">Pórtico</option>
+            <option value="mixto">Mixto</option>
+          </select>
         </div>
         <div class="ffield"><label>Carretes adicionales</label><input type="number" id="eq-carretes-extra" placeholder="0" oninput="calcular()" min="0"></div>
       </div>
     </div>
   </div>
+
+  <!-- PISTOLAS -->
   <div class="card open" id="c-pistolas">
     <div class="card-hdr" onclick="toggleCard('c-pistolas')">
-      <div class="cicon green">🔫</div><div class="ctitle">Pistolas de Suministro</div><div class="carrow">▼</div>
+      <div class="cicon green">🔫</div>
+      <div class="ctitle">Pistolas de Suministro</div>
+      <div class="carrow">▼</div>
     </div>
     <div class="card-body">
       <div class="fgrid">
         <div class="ffield"><label>Pistolas sin contador</label><input type="number" id="eq-pistolas-sc" placeholder="0" oninput="calcular()" min="0"></div>
-        <div class="ffield"><label>Pistolas contador mecánico</label><input type="number" id="eq-pistolas-cm" placeholder="0" oninput="calcular()" min="0"></div>
-        <div class="ffield"><label>Pistolas contador electrónico</label><input type="number" id="eq-pistolas-ce" placeholder="0" oninput="calcular()" min="0"></div>
-        <div class="ffield"><label>Pistolas de grasa</label><input type="number" id="eq-pistolas-grasa" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Pistolas con contador mecánico</label><input type="number" id="eq-pistolas-cm" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Pistolas con contador electrónico</label><input type="number" id="eq-pistolas-ce" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Pistolas de grasa (engrase)</label><input type="number" id="eq-pistolas-grasa" placeholder="0" oninput="calcular()" min="0"></div>
       </div>
     </div>
   </div>
+
+  <!-- NEXU -->
   <div class="card open" id="c-nexu">
     <div class="card-hdr" onclick="toggleCard('c-nexu')">
-      <div class="cicon dark">💻</div><div class="ctitle">Sistema NEXU</div><div class="carrow">▼</div>
+      <div class="cicon dark">💻</div>
+      <div class="ctitle">Sistema NEXU</div>
+      <div class="carrow">▼</div>
     </div>
     <div class="card-body">
-      <div class="ibox blue">1 fuente de poder cada 8 carretes/U·valve. Distancia máx CAN BUS: 250m.</div>
-      <div id="nexu-resultado"></div>
+      <div class="ibox blue">1 fuente de poder por cada 8 carretes/U·valve. Distancia máxima CAN BUS: 250m. Distancia máxima Wi-Fi: depende del entorno.</div>
+      <div id="nexu-resultado" style="margin-bottom:12px"></div>
+      <div class="sub-hdr">Configuración NEXU</div>
       <div class="fgrid three">
-        <div class="ffield"><label>U·valve adicionales</label><input type="number" id="eq-uvalve" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>U·valve (electroválvulas)</label><input type="number" id="eq-uvalve" placeholder="0" oninput="calcular()" min="0"></div>
         <div class="ffield"><label>Teclados U·dat</label><input type="number" id="eq-udat" placeholder="0" oninput="calcular()" min="0"></div>
         <div class="ffield"><label>Módulos U·tank</label><input type="number" id="eq-utank" placeholder="0" oninput="calcular()" min="0"></div>
-        <div class="ffield"><label>Voltaje disponible</label>
-          <select id="tb-voltaje" onchange="calcular()"><option value="110">110V</option><option value="220">220V</option><option value="ambos">Ambos</option></select>
-        </div>
+      </div>
+      <div class="fgrid">
+        <div class="ffield"><label>Distancia U·net → U·dat más lejano (m)</label><input type="number" id="eq-dist-udat" placeholder="0" oninput="calcular()" min="0"></div>
         <div class="ffield"><label>Comunicación</label>
-          <select id="eq-com"><option value="canbus">CAN BUS (cable)</option><option value="wifi">Wi-Fi</option><option value="mixto">Mixto</option></select>
+          <select id="eq-com" onchange="calcular()">
+            <option value="canbus">CAN BUS (cable)</option>
+            <option value="wifi">Wi-Fi (inalámbrico)</option>
+            <option value="mixto">Mixto</option>
+          </select>
         </div>
-        <div class="ffield"><label>Dist. U·net → U·dat más lejano (m)</label><input type="number" id="eq-dist-udat" placeholder="0" oninput="calcular()" min="0"></div>
       </div>
     </div>
   </div>
+
+  <!-- COMPRESOR -->
   <div class="card open" id="c-compresor">
     <div class="card-hdr" onclick="toggleCard('c-compresor')">
-      <div class="cicon purple">💨</div><div class="ctitle">Aire Comprimido</div><div class="carrow">▼</div>
+      <div class="cicon purple">💨</div>
+      <div class="ctitle">Aire Comprimido</div>
+      <div class="carrow">▼</div>
     </div>
     <div class="card-body">
-      <div class="ibox orange">Mínimo SAMOA: 6 bar / 87 PSI. Para bombas 30:1 y 50:1: mínimo 7 bar. Caudal mínimo: 200 L/min por bomba.</div>
+      <div class="ibox orange">Requerimiento mínimo SAMOA: 6 bar (87 PSI). Para bombas de alta relación (30:1, 50:1): mínimo 7 bar. Caudal mínimo: 200 L/min por bomba.</div>
       <div class="fgrid">
-        <div class="ffield"><label>¿Hay compresor?</label>
-          <select id="eq-compresor-existe"><option value="si">Sí, existente</option><option value="no">No, instalar nuevo</option></select>
+        <div class="ffield"><label>¿Hay compresor existente?</label>
+          <select id="eq-compresor-existe" onchange="calcular()">
+            <option value="si">Sí, hay compresor</option>
+            <option value="no">No, hay que instalar</option>
+          </select>
         </div>
-        <div class="ffield"><label>Presión (bar)</label><input type="number" id="eq-compresor-bar" placeholder="0" oninput="calcular()" min="0"></div>
-        <div class="ffield"><label>Caudal (L/min)</label><input type="number" id="eq-compresor-caudal" placeholder="0" oninput="calcular()" min="0"></div>
-        <div class="ffield"><label>Tanque (litros)</label><input type="number" id="eq-compresor-tanque" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Presión compresor existente (bar)</label><input type="number" id="eq-compresor-bar" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Capacidad compresor (L/min)</label><input type="number" id="eq-compresor-caudal" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Capacidad tanque (litros)</label><input type="number" id="eq-compresor-tanque" placeholder="0" oninput="calcular()" min="0"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- INSTALACIÓN -->
+<!-- ══════════ TAB: INSTALACIÓN ══════════ -->
 <div id="t-instalacion" class="tab-panel">
+  <div class="ibox blue">Materiales y herramientas necesarios para la instalación.</div>
+
+  <!-- TUBERÍAS -->
   <div class="card open" id="c-tuberias">
     <div class="card-hdr" onclick="toggleCard('c-tuberias')">
-      <div class="cicon orange">🔩</div><div class="ctitle">Tuberías y Accesorios</div><div class="carrow">▼</div>
+      <div class="cicon orange">🔩</div>
+      <div class="ctitle">Tuberías y Accesorios</div>
+      <div class="carrow">▼</div>
     </div>
     <div class="card-body">
-      <div class="ibox orange">Tubería Sch.40: tramos de 5.6m. Conduit eléctrico: tramos de 3m. Se calcula +15% por desperdicios.</div>
-      <div id="tuberias-resultado"></div>
-      <div class="sub-hdr">Longitudes por diámetro</div>
+      <div class="ibox orange">Tubería acero carbono Schedule 40: tramos de 5.6m. Tubería eléctrica conduit: tramos de 3m. Calcular 15% adicional por desperdicios y cortes.</div>
+      <div id="tuberias-resultado" style="margin-bottom:12px"></div>
+      <div class="sub-hdr">Longitudes de tubería por diámetro</div>
       <div class="fgrid three">
-        <div class="ffield"><label>Tubería 1/2" (m)</label><input type="number" id="tb-medio" placeholder="0" oninput="calcular()" min="0"></div>
-        <div class="ffield"><label>Tubería 3/4" (m)</label><input type="number" id="tb-tres-cuartos" placeholder="0" oninput="calcular()" min="0"></div>
-        <div class="ffield"><label>Tubería 1" (m)</label><input type="number" id="tb-una" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Tubería 1/2" (m lineales)</label><input type="number" id="tb-medio" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Tubería 3/4" (m lineales)</label><input type="number" id="tb-tres-cuartos" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Tubería 1" (m lineales)</label><input type="number" id="tb-una" placeholder="0" oninput="calcular()" min="0"></div>
       </div>
-      <div class="sub-hdr" style="margin-top:8px">Accesorios</div>
+      <div class="sub-hdr" style="margin-top:8px">Accesorios de tubería</div>
       <div class="fgrid three">
-        <div class="ffield"><label>Codos 90°</label><input type="number" id="tb-codos90" placeholder="0" min="0"></div>
-        <div class="ffield"><label>Codos 45°</label><input type="number" id="tb-codos45" placeholder="0" min="0"></div>
-        <div class="ffield"><label>Tés (T)</label><input type="number" id="tb-tes" placeholder="0" min="0"></div>
-        <div class="ffield"><label>Llaves de paso</label><input type="number" id="tb-llaves" placeholder="0" min="0"></div>
-        <div class="ffield"><label>Uniones</label><input type="number" id="tb-uniones" placeholder="0" min="0"></div>
-        <div class="ffield"><label>Niples / Bushing</label><input type="number" id="tb-niples" placeholder="0" min="0"></div>
+        <div class="ffield"><label>Codos 90°</label><input type="number" id="tb-codos90" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Codos 45°</label><input type="number" id="tb-codos45" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Tés (T)</label><input type="number" id="tb-tes" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Llaves de paso</label><input type="number" id="tb-llaves" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Uniones</label><input type="number" id="tb-uniones" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Niples / Bushing</label><input type="number" id="tb-niples" placeholder="0" oninput="calcular()" min="0"></div>
       </div>
-      <div class="sub-hdr" style="margin-top:8px">Cableado</div>
+      <div class="sub-hdr" style="margin-top:8px">Cableado eléctrico</div>
       <div class="fgrid three">
-        <div class="ffield"><label>Conduit eléctrico (m)</label><input type="number" id="tb-conduit" placeholder="0" oninput="calcular()" min="0"></div>
-        <div class="ffield"><label>Cajas de paso</label><input type="number" id="tb-cajas" placeholder="0" min="0"></div>
-        <div class="ffield"><label>Tomacorrientes requeridos</label><input type="number" id="tb-tomas-req" placeholder="0" min="0"></div>
+        <div class="ffield"><label>Conduit eléctrico (m lineales)</label><input type="number" id="tb-conduit" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Cajas de paso</label><input type="number" id="tb-cajas" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Voltaje disponible</label>
+          <select id="tb-voltaje" onchange="calcular()">
+            <option value="110">110V</option>
+            <option value="220">220V</option>
+            <option value="ambos">Ambos (110V y 220V)</option>
+          </select>
+        </div>
+      </div>
+      <div class="sub-hdr" style="margin-top:8px">Puntos de energía</div>
+      <div class="fgrid">
+        <div class="ffield"><label>Tomacorrientes disponibles en área</label><input type="number" id="tb-tomas" placeholder="0" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Tomacorrientes adicionales requeridos</label><input type="number" id="tb-tomas-req" placeholder="0" oninput="calcular()" min="0"></div>
       </div>
     </div>
   </div>
+
+  <!-- HERRAMIENTAS -->
   <div class="card open" id="c-herramientas">
     <div class="card-hdr" onclick="toggleCard('c-herramientas')">
-      <div class="cicon green">🔨</div><div class="ctitle">Herramientas</div><div class="carrow">▼</div>
+      <div class="cicon green">🔨</div>
+      <div class="ctitle">Herramientas y Equipos de Trabajo</div>
+      <div class="carrow">▼</div>
     </div>
     <div class="card-body">
       <div class="sub-hdr">Herramientas manuales</div>
-      <div class="check-item"><input type="checkbox" id="h1" checked><label for="h1">Juego de llaves fijas y combinadas (1/4" a 1-1/4")</label></div>
-      <div class="check-item"><input type="checkbox" id="h2" checked><label for="h2">Llave de tubo / Stillson</label></div>
-      <div class="check-item"><input type="checkbox" id="h3" checked><label for="h3">Destornilladores (plano y Phillips)</label></div>
-      <div class="check-item"><input type="checkbox" id="h4" checked><label for="h4">Alicates (universal, punta, corte)</label></div>
-      <div class="check-item"><input type="checkbox" id="h5" checked><label for="h5">Nivel de burbuja (60cm y 120cm)</label></div>
-      <div class="check-item"><input type="checkbox" id="h6" checked><label for="h6">Cinta métrica (5m y 10m)</label></div>
-      <div class="check-item"><input type="checkbox" id="h7" checked><label for="h7">Teflón y sellante Loctite 545</label></div>
-      <div class="sub-hdr" style="margin-top:8px">Herramientas eléctricas / neumáticas</div>
-      <div class="check-item"><input type="checkbox" id="h8" checked><label for="h8">Taladro percutor inalámbrico + brocas (concreto y metal)</label></div>
-      <div class="check-item"><input type="checkbox" id="h9" checked><label for="h9">Atornilladora / Impacto neumático</label></div>
-      <div class="check-item"><input type="checkbox" id="h10" checked><label for="h10">Amoladora angular (cortes de tubería)</label></div>
-      <div class="check-item"><input type="checkbox" id="h11" checked><label for="h11">Sierra para metales</label></div>
-      <div class="check-item"><input type="checkbox" id="h12" checked><label for="h12">Roscadora de tubería (manual o eléctrica)</label></div>
-      <div class="check-item"><input type="checkbox" id="h13"><label for="h13">Dobladora de tubería</label></div>
-      <div class="check-item"><input type="checkbox" id="h14" checked><label for="h14">Multímetro / Tester eléctrico</label></div>
-      <div class="check-item"><input type="checkbox" id="h15" checked><label for="h15">Manómetro de presión (pruebas de circuito)</label></div>
-      <div class="check-item"><input type="checkbox" id="h16" checked><label for="h16">Laptop / Tablet (configuración NEXU y U·track)</label></div>
-      <div class="sub-hdr" style="margin-top:8px">Acceso en altura</div>
+      <div id="herramientas-manuales">
+        <div class="check-item"><input type="checkbox" id="h1" checked><label for="h1">Juego de llaves fijas y combinadas (1/4" a 1-1/4")</label></div>
+        <div class="check-item"><input type="checkbox" id="h2" checked><label for="h2">Llave de tubo / Stillson (varias medidas)</label></div>
+        <div class="check-item"><input type="checkbox" id="h3" checked><label for="h3">Destornilladores (plano y Phillips, varios tamaños)</label></div>
+        <div class="check-item"><input type="checkbox" id="h4" checked><label for="h4">Alicates (universal, punta, corte)</label></div>
+        <div class="check-item"><input type="checkbox" id="h5" checked><label for="h5">Nivel de burbuja (60cm y 120cm)</label></div>
+        <div class="check-item"><input type="checkbox" id="h6" checked><label for="h6">Cinta métrica (5m y 10m)</label></div>
+        <div class="check-item"><input type="checkbox" id="h7" checked><label for="h7">Cutter / Navaja</label></div>
+        <div class="check-item"><input type="checkbox" id="h8" checked><label for="h8">Marcador permanente y cinta de marcar</label></div>
+        <div class="check-item"><input type="checkbox" id="h9" checked><label for="h9">Teflón y sellante Loctite 545 (para roscas)</label></div>
+        <div class="check-item"><input type="checkbox" id="h10" checked><label for="h10">Espuma expansiva y silicona (para sellados)</label></div>
+      </div>
+
+      <div class="sub-hdr" style="margin-top:12px">Herramientas eléctricas / neumáticas</div>
+      <div class="check-item"><input type="checkbox" id="h11" checked><label for="h11">Taladro percutor inalámbrico + juego de brocas (concreto y metal)</label></div>
+      <div class="check-item"><input type="checkbox" id="h12" checked><label for="h12">Atornilladora / Impacto neumático</label></div>
+      <div class="check-item"><input type="checkbox" id="h13" checked><label for="h13">Amoladora angular (para cortes de tubería)</label></div>
+      <div class="check-item"><input type="checkbox" id="h14" checked><label for="h14">Sierra para metales (manual y/o eléctrica)</label></div>
+      <div class="check-item"><input type="checkbox" id="h15" checked><label for="h15">Roscadora de tubería manual o eléctrica (si se roscará en sitio)</label></div>
+      <div class="check-item"><input type="checkbox" id="h16" checked><label for="h16">Dobladora de tubería (si aplica)</label></div>
+      <div class="check-item"><input type="checkbox" id="h17"><label for="h17">Soldadora eléctrica (solo si hay soldadura en sitio)</label></div>
+      <div class="check-item"><input type="checkbox" id="h18" checked><label for="h18">Multímetro / Tester eléctrico</label></div>
+      <div class="check-item"><input type="checkbox" id="h19" checked><label for="h19">Manómetro de presión (para pruebas de circuito)</label></div>
+      <div class="check-item"><input type="checkbox" id="h20" checked><label for="h20">Laptop / Tablet (para configuración NEXU y U·track)</label></div>
+
+      <div class="sub-hdr" style="margin-top:12px">Acceso en altura</div>
       <div class="fgrid">
-        <div class="ffield"><label>Tipo de acceso en altura</label>
-          <select id="h-altura">
-            <option value="no">No requerido</option>
+        <div class="ffield"><label>¿Se requiere trabajo en altura?</label>
+          <select id="h-altura" onchange="calcular()">
+            <option value="no">No</option>
             <option value="escalera">Escalera (hasta 3m)</option>
             <option value="andamio">Andamio (3-6m)</option>
             <option value="tijera">Elevador tijera (>6m)</option>
           </select>
         </div>
-        <div class="ffield"><label>Altura máxima de trabajo (m)</label><input type="number" id="h-altura-max" placeholder="0" min="0"></div>
+        <div class="ffield"><label>Altura máxima de trabajo (m)</label><input type="number" id="h-altura-max" placeholder="0" oninput="calcular()" min="0"></div>
       </div>
-      <div class="sub-hdr" style="margin-top:8px">EPI (Protección Individual)</div>
+
+      <div class="sub-hdr" style="margin-top:12px">EPI (Equipos de Protección Individual)</div>
       <div class="check-item"><input type="checkbox" id="epi1" checked><label for="epi1">Casco de seguridad</label></div>
       <div class="check-item"><input type="checkbox" id="epi2" checked><label for="epi2">Gafas de seguridad</label></div>
-      <div class="check-item"><input type="checkbox" id="epi3" checked><label for="epi3">Guantes (cuero y nitrilo)</label></div>
+      <div class="check-item"><input type="checkbox" id="epi3" checked><label for="epi3">Guantes de trabajo (cuero y nitrilo)</label></div>
       <div class="check-item"><input type="checkbox" id="epi4" checked><label for="epi4">Botas con punta de acero</label></div>
       <div class="check-item"><input type="checkbox" id="epi5" checked><label for="epi5">Overol / Ropa de trabajo</label></div>
-      <div class="check-item"><input type="checkbox" id="epi6"><label for="epi6">Arnés de seguridad (altura >2m)</label></div>
+      <div class="check-item"><input type="checkbox" id="epi6"><label for="epi6">Arnés de seguridad (si trabajo en altura >2m)</label></div>
+      <div class="check-item"><input type="checkbox" id="epi7" checked><label for="epi7">Protectores auditivos</label></div>
+      <div class="check-item"><input type="checkbox" id="epi8" checked><label for="epi8">Mascarilla antipolvo</label></div>
     </div>
   </div>
+
+  <!-- CONSUMIBLES -->
   <div class="card open" id="c-consumibles">
     <div class="card-hdr" onclick="toggleCard('c-consumibles')">
-      <div class="cicon red">🧪</div><div class="ctitle">Consumibles y Materiales</div><div class="carrow">▼</div>
+      <div class="cicon red">🧪</div>
+      <div class="ctitle">Consumibles y Materiales</div>
+      <div class="carrow">▼</div>
     </div>
     <div class="card-body">
       <div class="check-item"><input type="checkbox" id="c1" checked><label for="c1">Teflón (cinta PTFE) — varios rollos</label></div>
-      <div class="check-item"><input type="checkbox" id="c2" checked><label for="c2">Sellante de roscas Loctite 545</label></div>
-      <div class="check-item"><input type="checkbox" id="c3" checked><label for="c3">Cinta autovulcanizante</label></div>
-      <div class="check-item"><input type="checkbox" id="c4" checked><label for="c4">Bridas plásticas (varios tamaños)</label></div>
-      <div class="check-item"><input type="checkbox" id="c5" checked><label for="c5">Abrazaderas metálicas para tubería</label></div>
-      <div class="check-item"><input type="checkbox" id="c6" checked><label for="c6">Tacos de expansión y tornillos de anclaje</label></div>
-      <div class="check-item"><input type="checkbox" id="c7" checked><label for="c7">Etiquetas identificadoras de fluidos</label></div>
-      <div class="check-item"><input type="checkbox" id="c8" checked><label for="c8">Paños absorbentes / Bandejas de goteo</label></div>
-      <div class="check-item"><input type="checkbox" id="c9" checked><label for="c9">Limpiador / Desengrasante</label></div>
-      <div class="check-item"><input type="checkbox" id="c10" checked><label for="c10">Agua jabonosa (prueba de fugas)</label></div>
+      <div class="check-item"><input type="checkbox" id="c2" checked><label for="c2">Sellante de roscas Loctite 545 o equivalente</label></div>
+      <div class="check-item"><input type="checkbox" id="c3" checked><label for="c3">Cinta autovulcanizante (para protección de mangueras)</label></div>
+      <div class="check-item"><input type="checkbox" id="c4" checked><label for="c4">Bridas plásticas / Precintos (varios tamaños)</label></div>
+      <div class="check-item"><input type="checkbox" id="c5" checked><label for="c5">Abrazaderas metálicas para sujeción de tubería</label></div>
+      <div class="check-item"><input type="checkbox" id="c6" checked><label for="c6">Tacos de expansión y tornillos para anclaje</label></div>
+      <div class="check-item"><input type="checkbox" id="c7" checked><label for="c7">Pintura antioxidante (para estructuras metálicas)</label></div>
+      <div class="check-item"><input type="checkbox" id="c8" checked><label for="c8">Etiquetas identificadoras de fluidos (adhesivas)</label></div>
+      <div class="check-item"><input type="checkbox" id="c9" checked><label for="c9">Paños absorbentes / Bandejas de goteo</label></div>
+      <div class="check-item"><input type="checkbox" id="c10" checked><label for="c10">Limpiador de superficies / Desengrasante</label></div>
       <div class="check-item"><input type="checkbox" id="c11"><label for="c11">Cable CAN BUS (si comunicación por cable)</label></div>
-      <div class="check-item"><input type="checkbox" id="c12" checked><label for="c12">Aceite para unidad RFL (lubricador de aire)</label></div>
+      <div class="check-item"><input type="checkbox" id="c12"><label for="c12">Cable eléctrico (calibre según carga)</label></div>
+      <div class="check-item"><input type="checkbox" id="c13" checked><label for="c13">Agua jabonosa (para prueba de fugas)</label></div>
+      <div class="check-item"><input type="checkbox" id="c14" checked><label for="c14">Aceite para la unidad RFL del lubricador de aire</label></div>
     </div>
   </div>
 </div>
 
-<!-- LOGÍSTICA -->
+<!-- ══════════ TAB: LOGÍSTICA ══════════ -->
 <div id="t-logistica" class="tab-panel">
+  <div class="ibox blue">Planificación de tiempos, traslados y condiciones de trabajo.</div>
+
+  <!-- TIEMPO -->
   <div class="card open" id="c-tiempo">
     <div class="card-hdr" onclick="toggleCard('c-tiempo')">
-      <div class="cicon purple">⏱️</div><div class="ctitle">Estimación de Tiempo</div><div class="carrow">▼</div>
+      <div class="cicon purple">⏱️</div>
+      <div class="ctitle">Estimación de Tiempo</div>
+      <div class="carrow">▼</div>
     </div>
     <div class="card-body">
-      <div id="tiempo-resultado"></div>
+      <div id="tiempo-resultado" style="margin-bottom:12px"></div>
+      <div class="sub-hdr">Horario de trabajo</div>
       <div class="fgrid">
-        <div class="ffield"><label>Horario de trabajo</label>
+        <div class="ffield"><label>Horario disponible</label>
           <select id="l-horario" onchange="calcular()">
-            <option value="diurno">Lun-Vie 7am-5pm (THP)</option>
-            <option value="nocturno">Nocturno</option>
-            <option value="finde">Fin de semana</option>
-            <option value="mixto">Mixto</option>
-            <option value="continuo">Continuo 24/7</option>
+            <option value="diurno">Diurno — Lun a Vie 7am-5pm (THP)</option>
+            <option value="nocturno">Nocturno — Solo de noche</option>
+            <option value="finde">Fin de semana — Sáb y Dom</option>
+            <option value="mixto">Mixto — Según disponibilidad del cliente</option>
+            <option value="continuo">Continuo — 24/7 si es necesario</option>
           </select>
         </div>
-        <div class="ffield"><label>Horas disponibles por día</label><input type="number" id="l-horas-dia" value="10" oninput="calcular()" min="1" max="24"></div>
-        <div class="ffield"><label>Días por semana</label><input type="number" id="l-dias-sem" value="5" oninput="calcular()" min="1" max="7"></div>
-        <div class="ffield"><label>Nº técnicos en sitio</label><input type="number" id="l-tecnicos" value="2" oninput="calcular()" min="1"></div>
+        <div class="ffield"><label>Horas disponibles por día</label><input type="number" id="l-horas-dia" placeholder="10" oninput="calcular()" min="1" max="24" value="10"></div>
+        <div class="ffield"><label>Días disponibles por semana</label><input type="number" id="l-dias-sem" placeholder="5" oninput="calcular()" min="1" max="7" value="5"></div>
+        <div class="ffield"><label>Nº de técnicos en sitio</label><input type="number" id="l-tecnicos" placeholder="2" oninput="calcular()" min="1" value="2"></div>
       </div>
+      <div class="sub-hdr" style="margin-top:8px">Restricciones del cliente</div>
       <div class="fgrid one">
-        <div class="ffield"><label>Restricciones del cliente</label>
-          <textarea id="l-restricciones" placeholder="Ej: No trabajar lunes, taller opera 8am-6pm..."></textarea>
+        <div class="ffield"><label>Restricciones de horario o acceso</label>
+          <textarea id="l-restricciones" placeholder="Ej: No se puede trabajar los lunes, el taller opera de 8am-6pm, parar antes de abrir..."></textarea>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- TRASLADO -->
   <div class="card open" id="c-traslado">
     <div class="card-hdr" onclick="toggleCard('c-traslado')">
-      <div class="cicon green">✈️</div><div class="ctitle">Traslado y Alojamiento</div><div class="carrow">▼</div>
+      <div class="cicon green">✈️</div>
+      <div class="ctitle">Traslado y Alojamiento</div>
+      <div class="carrow">▼</div>
     </div>
     <div class="card-body">
       <div class="fgrid">
         <div class="ffield"><label>Tipo de traslado</label>
-          <select id="l-traslado">
+          <select id="l-traslado" onchange="calcular()">
             <option value="auto">Auto propio / empresa</option>
             <option value="publico">Transporte público</option>
             <option value="avion">Vuelo / Avión</option>
             <option value="mixto">Mixto (vuelo + auto)</option>
           </select>
         </div>
-        <div class="ffield"><label>Distancia aproximada (km)</label><input type="number" id="l-distancia" placeholder="0" min="0"></div>
+        <div class="ffield"><label>Distancia aproximada (km)</label><input type="number" id="l-distancia" placeholder="0" oninput="calcular()" min="0"></div>
         <div class="ffield"><label>¿Se requiere hotel?</label>
-          <select id="l-hotel" onchange="calcular()"><option value="no">No — regreso diario</option><option value="si">Sí — estadía</option></select>
+          <select id="l-hotel" onchange="calcular()">
+            <option value="no">No — regreso diario</option>
+            <option value="si">Sí — estadía en sitio</option>
+          </select>
         </div>
         <div class="ffield"><label>Nº noches estimadas</label><input type="number" id="l-noches" placeholder="0" oninput="calcular()" min="0"></div>
-        <div class="ffield"><label>Costo traslado (USD)</label><input type="number" id="l-costo-traslado" placeholder="0" oninput="calcular()" min="0"></div>
+      </div>
+      <div class="fgrid">
+        <div class="ffield"><label>¿Se requiere alquiler de vehículo en destino?</label>
+          <select id="l-alquiler">
+            <option value="no">No</option>
+            <option value="si">Sí</option>
+          </select>
+        </div>
+        <div class="ffield"><label>Costo estimado traslado (USD)</label><input type="number" id="l-costo-traslado" placeholder="0" oninput="calcular()" min="0"></div>
         <div class="ffield"><label>Costo hotel/noche (USD)</label><input type="number" id="l-costo-hotel" placeholder="0" oninput="calcular()" min="0"></div>
-        <div class="ffield"><label>Viáticos comidas/día (USD)</label><input type="number" id="l-viaticos" value="50" oninput="calcular()" min="0"></div>
+        <div class="ffield"><label>Viáticos comidas/día (USD)</label><input type="number" id="l-viaticos" placeholder="50" oninput="calcular()" min="0" value="50"></div>
       </div>
     </div>
   </div>
+
+  <!-- NOTAS LOGÍSTICA -->
   <div class="card" id="c-notas-log">
     <div class="card-hdr" onclick="toggleCard('c-notas-log')">
-      <div class="cicon gray">📝</div><div class="ctitle">Notas Adicionales</div><div class="carrow">▼</div>
+      <div class="cicon gray">📝</div>
+      <div class="ctitle">Notas y Observaciones Adicionales</div>
+      <div class="carrow">▼</div>
     </div>
     <div class="card-body">
       <div class="fgrid one">
-        <div class="ffield"><label>Observaciones del levantamiento</label>
-          <textarea id="l-notas" placeholder="Condiciones especiales, riesgos, permisos, coordinaciones..." style="min-height:120px;"></textarea>
+        <div class="ffield"><label>Observaciones adicionales del levantamiento</label>
+          <textarea id="l-notas" placeholder="Condiciones especiales del sitio, riesgos identificados, coordinaciones necesarias, permisos de trabajo, etc..." style="min-height:120px;"></textarea>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- RESUMEN -->
+<!-- ══════════ TAB: RESUMEN ══════════ -->
 <div id="t-resumen" class="tab-panel">
   <button class="btn btn-primary" onclick="calcular();showToast('✅ Resumen actualizado')">🔄 Actualizar Resumen</button>
   <div id="resumen-completo"></div>
-  <button class="btn btn-green" onclick="imprimirResumen()" style="margin-top:10px">🖨️ Imprimir / PDF</button>
+  <button class="btn btn-green" onclick="enviarLevantamiento()" style="margin-top:10px">📧 Enviar por Correo</button>
+  <button class="btn btn-primary" onclick="imprimirResumen()" style="margin-top:10px;background:#6b21a8">🖨️ Imprimir / PDF</button>
   <button class="btn btn-ghost" onclick="resetTodo()" style="margin-top:10px">↺ Nuevo Levantamiento</button>
 </div>
 
-</div>
+</div><!-- end content -->
+
 <div class="toast" id="toast"></div>
 
 <script>
-const FLUIDOS=[
-  {id:'fl-am1',nombre:'Aceite Motor Multi-grado',rel:'5:1',tipo:'piston'},
-  {id:'fl-am2',nombre:'Aceite Motor Sintético',rel:'5:1',tipo:'piston'},
-  {id:'fl-am3',nombre:'Aceite Diesel / Heavy Duty',rel:'5:1',tipo:'piston'},
-  {id:'fl-atf',nombre:'Aceite ATF (Trans. Auto)',rel:'5:1',tipo:'piston'},
-  {id:'fl-atm',nombre:'Aceite Trans. Manual',rel:'10:1',tipo:'piston'},
-  {id:'fl-dif',nombre:'Aceite Diferencial',rel:'10:1',tipo:'piston'},
-  {id:'fl-hid',nombre:'Aceite Hidráulico',rel:'5:1',tipo:'piston'},
-  {id:'fl-cool',nombre:'Coolant / Anticongelante',rel:'3:1',tipo:'piston'},
-  {id:'fl-grasa',nombre:'Grasa NLGI 2',rel:'50:1',tipo:'engrasadora'},
-  {id:'fl-adblue',nombre:'AdBlue / DEF',rel:'membrana',tipo:'membrana'},
-  {id:'fl-usado',nombre:'Aceite Usado (Recuperador)',rel:'vacío',tipo:'recuperador'},
-  {id:'fl-diesel',nombre:'Diesel / Gasoil',rel:'3:1',tipo:'piston'},
-  {id:'fl-frenos',nombre:'Líquido de Frenos DOT',rel:'3:1',tipo:'piston'},
-  {id:'fl-wash',nombre:'Limpiaparabrisas',rel:'3:1',tipo:'piston'},
-];
+// ═══ DATOS SAMOA ═══
+const BOMBAS_SAMOA = {
+  'aceite_ligero': {rel:'3:1', desc:'Aceites ligeros (limpiaparabrisas, frenos)', visc:'<50 cSt'},
+  'aceite_motor': {rel:'5:1', desc:'Aceite motor, ATF, hidráulico', visc:'50-200 cSt'},
+  'aceite_pesado': {rel:'10:1', desc:'Aceites viscosos, engranajes', visc:'200-1000 cSt'},
+  'grasa_blanda': {rel:'30:1', desc:'Grasa semilíquida NLGI 000-0', visc:'1000-3000 cSt'},
+  'grasa_media': {rel:'50:1', desc:'Grasa NLGI 1-2 (multi-propósito)', visc:'>3000 cSt'},
+  'grasa_dura': {rel:'65:1', desc:'Grasa dura NLGI 3+', visc:'Muy alta'},
+};
 
-window.addEventListener('load',()=>{
-  document.getElementById('p-fecha').value=new Date().toISOString().split('T')[0];
+const TIEMPO_EST = {
+  'por_carrete': 1.5,
+  'por_bomba': 2,
+  'por_nexu_componente': 1,
+  'tuberia_por_metro': 0.3,
+  'estructura_portico': 4,
+  'pruebas_generales': 4,
+  'configuracion_nexu': 6,
+  'capacitacion': 2,
+};
+
+// ═══ INIT ═══
+window.addEventListener('load', ()=>{
+  document.getElementById('p-fecha').value = new Date().toISOString().split('T')[0];
   calcular();
 });
 
-function switchTab(id,btn){
+// ═══ TABS ═══
+function switchTab(id, btn){
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
   if(id==='t-resumen') calcular();
 }
-function toggleCard(id){document.getElementById(id).classList.toggle('open');}
-function gv(id){const e=document.getElementById(id);return e?e.value:'';}
-function gn(id){const e=document.getElementById(id);return e?parseFloat(e.value)||0:0;}
-function gc(id){const e=document.getElementById(id);return e?e.checked:false;}
+function toggleCard(id){ document.getElementById(id).classList.toggle('open'); }
 
+// ═══ HELPERS ═══
+function gv(id){ const el=document.getElementById(id); return el?el.value:''; }
+function gn(id){ const el=document.getElementById(id); return el?parseFloat(el.value)||0:0; }
+function gc(id){ const el=document.getElementById(id); return el?el.checked:false; }
+
+// ═══ CALCULAR TODO ═══
 function calcular(){
-  const sel=FLUIDOS.filter(f=>gc(f.id));
-  const bahias=gn('t-bahias')||1;
+  // Fluidos seleccionados
+  const fluidos = [
+    {id:'fl-am1', nombre:'Aceite Motor Multi-grado', tipo:'aceite_motor', rel:'5:1'},
+    {id:'fl-am2', nombre:'Aceite Motor Sintético', tipo:'aceite_motor', rel:'5:1'},
+    {id:'fl-am3', nombre:'Aceite Diesel / Heavy Duty', tipo:'aceite_motor', rel:'5:1'},
+    {id:'fl-atf', nombre:'Aceite ATF (Transmisión Auto)', tipo:'aceite_motor', rel:'5:1'},
+    {id:'fl-atm', nombre:'Aceite Transmisión Manual', tipo:'aceite_pesado', rel:'10:1'},
+    {id:'fl-dif', nombre:'Aceite Diferencial', tipo:'aceite_pesado', rel:'10:1'},
+    {id:'fl-hid', nombre:'Aceite Hidráulico', tipo:'aceite_motor', rel:'5:1'},
+    {id:'fl-cool', nombre:'Coolant / Anticongelante', tipo:'aceite_ligero', rel:'3:1'},
+    {id:'fl-agua', nombre:'Agua Desmineralizada', tipo:'aceite_ligero', rel:'3:1'},
+    {id:'fl-grasa', nombre:'Grasa NLGI 2', tipo:'grasa_media', rel:'50:1'},
+    {id:'fl-adblue', nombre:'AdBlue / DEF', tipo:'aceite_ligero', rel:'3:1'},
+    {id:'fl-usado', nombre:'Aceite Usado (Recuperador)', tipo:'membrana', rel:'membrana'},
+    {id:'fl-diesel', nombre:'Diesel / Gasoil', tipo:'aceite_ligero', rel:'3:1'},
+    {id:'fl-frenos', nombre:'Líquido de Frenos', tipo:'aceite_ligero', rel:'3:1'},
+    {id:'fl-wash', nombre:'Limpiaparabrisas', tipo:'aceite_ligero', rel:'3:1'},
+  ];
 
-  // CARRETES
-  let totalCarretes=gn('eq-carretes-extra');
-  let carretesHtml='';
-  sel.forEach(f=>{
-    const dep=gn(f.id+'-dep')||1;
-    if(f.tipo==='piston'||f.tipo==='membrana'||f.tipo==='recuperador'){
-      totalCarretes+=dep;
-      carretesHtml+=`<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid #f0f4fa"><span style="color:var(--gray)">${f.nombre}</span><span style="font-weight:600">${dep} carrete${dep>1?'s':''} · Rel. ${f.rel}</span></div>`;
+  const selFluidos = fluidos.filter(f=>gc(f.id));
+  const totalFluidos = selFluidos.length;
+  const totalDepositosFluid = selFluidos.reduce((a,f)=>a+gn(f.id+'-dep'),0);
+
+  // CARRETES — 1 carrete por fluido por punto de despacho
+  const bahias = gn('t-bahias')||1;
+  const carretesExtra = gn('eq-carretes-extra');
+  let totalCarretes = 0;
+  let carretesHtml = '';
+  selFluidos.forEach(f=>{
+    if(f.id==='fl-grasa'){
+      carretesHtml += `<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid #f0f4fa"><span style="color:var(--gray)">${f.nombre}</span><span style="font-weight:600">Engrasadora (no carrete)</span></div>`;
+    } else if(f.id==='fl-usado'){
+      carretesHtml += `<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid #f0f4fa"><span style="color:var(--gray)">${f.nombre}</span><span style="font-weight:600">Recuperador (no carrete)</span></div>`;
     } else {
-      carretesHtml+=`<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid #f0f4fa"><span style="color:var(--gray)">${f.nombre}</span><span style="font-weight:600">Engrasadora (sin carrete)</span></div>`;
+      const cant = gn(f.id+'-dep')||1;
+      totalCarretes += cant;
+      carretesHtml += `<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid #f0f4fa"><span style="color:var(--gray)">${f.nombre}</span><span style="font-weight:600">${cant} carrete${cant>1?'s':''} (Rel. ${f.rel})</span></div>`;
     }
   });
-  const elCR=document.getElementById('carretes-resultado');
-  if(elCR) elCR.innerHTML=carretesHtml?`<div class="ibox green"><strong>Total carretes: ${totalCarretes}</strong><br>${carretesHtml}</div>`:'';
+  totalCarretes += carretesExtra;
+  document.getElementById('carretes-resultado').innerHTML = carretesHtml ?
+    `<div class="ibox green"><strong>Carretes estimados: ${totalCarretes}</strong><br>${carretesHtml}</div>` : '';
+
+  // BOMBAS
+  const bombasPiston = gn('eq-bombas-piston');
+  const bombasMembrana = gn('eq-bombas-membrana');
+  const engrasadoras = gn('eq-engrasadoras');
+  let bombasHtml = '';
+  let totalBombas = bombasPiston + bombasMembrana;
+  selFluidos.forEach(f=>{
+    if(f.tipo==='membrana'){
+      bombasHtml += `<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid #f0f4fa"><span style="color:var(--gray)">${f.nombre}</span><span style="font-weight:600">Bomba Membrana (evacuación)</span></div>`;
+    } else if(f.id==='fl-grasa'){
+      bombasHtml += `<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid #f0f4fa"><span style="color:var(--gray)">${f.nombre}</span><span style="font-weight:600">Engrasadora (Rel. 50:1)</span></div>`;
+    } else {
+      bombasHtml += `<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid #f0f4fa"><span style="color:var(--gray)">${f.nombre}</span><span style="font-weight:600">Bomba Pistón Rel. ${f.rel}</span></div>`;
+      if(gc(f.id)) totalBombas++;
+    }
+  });
+  document.getElementById('bombas-resultado').innerHTML = bombasHtml ?
+    `<div class="ibox orange"><strong>Bombas estimadas: ${totalBombas} pistón + ${bombasMembrana} membrana + ${engrasadoras} engrasadora(s)</strong><br>${bombasHtml}</div>` : '';
 
   // NEXU
-  const uvalveBase=totalCarretes;
-  const uvalveExtra=gn('eq-uvalve');
-  const totalUvalve=uvalveBase+uvalveExtra;
-  const udat=gn('eq-udat')||Math.ceil(bahias/4)||1;
-  const utank=gn('eq-utank')||sel.length;
-  const fuentesPoder=Math.ceil((totalCarretes+totalUvalve)/8)||1;
-  const voltaje=gv('tb-voltaje')||'110';
-  const elNX=document.getElementById('nexu-resultado');
-  if(elNX) elNX.innerHTML=`<div class="ibox blue"><strong>Estimación NEXU:</strong><br>• U·net: 1 ud · U·meter: ${totalCarretes} uds · U·valve: ${totalUvalve} uds<br>• U·dat: ${udat} teclados · U·tank: ${utank} módulos<br>• <strong>Fuentes de poder: ${fuentesPoder}</strong> (1 cada 8 carretes/U·valve)<br>• Voltaje: ${voltaje}V</div>`;
+  const uvalve = gn('eq-uvalve') || totalCarretes;
+  const udat = gn('eq-udat') || Math.ceil(bahias/4);
+  const utank = gn('eq-utank') || selFluidos.length;
+  const fuentesPoder = Math.ceil((totalCarretes + uvalve) / 8);
+  const voltaje = gv('tb-voltaje');
+  document.getElementById('nexu-resultado').innerHTML = `
+    <div class="ibox blue">
+      <strong>Estimación NEXU:</strong><br>
+      • U·net: 1 unidad central<br>
+      • U·meter: ${totalCarretes} (uno por carrete)<br>
+      • U·valve: ${uvalve} electroválvulas<br>
+      • U·dat: ${udat} teclados<br>
+      • U·tank: ${utank} módulos de nivel<br>
+      • <strong>Fuentes de poder: ${fuentesPoder}</strong> (1 cada 8 carretes/U·valve)<br>
+      • Voltaje: ${voltaje}V
+    </div>`;
 
   // TUBERÍAS
-  const tbM=gn('tb-medio'),tbTQ=gn('tb-tres-cuartos'),tbU=gn('tb-una'),tbCon=gn('tb-conduit');
-  const tM=Math.ceil(tbM/5.6*1.15),tTQ=Math.ceil(tbTQ/5.6*1.15),tU=Math.ceil(tbU/5.6*1.15),tCon=Math.ceil(tbCon/3*1.15);
-  const elTB=document.getElementById('tuberias-resultado');
-  if(elTB&&(tbM+tbTQ+tbU+tbCon>0)) elTB.innerHTML=`<div class="ibox orange"><strong>Tramos requeridos (+15% desperdicio):</strong><br>${tbM>0?`• 1/2" Sch.40: ${tM} tramos de 5.6m<br>`:''}${tbTQ>0?`• 3/4" Sch.40: ${tTQ} tramos de 5.6m<br>`:''}${tbU>0?`• 1" Sch.40: ${tU} tramos de 5.6m<br>`:''}${tbCon>0?`• Conduit eléctrico: ${tCon} tramos de 3m`:''}
-  </div>`;
+  const tbMedio = gn('tb-medio');
+  const tbTresCuartos = gn('tb-tres-cuartos');
+  const tbUna = gn('tb-una');
+  const totalTuberia = tbMedio + tbTresCuartos + tbUna;
+  const tramosHalf = Math.ceil(tbMedio/5.6 * 1.15);
+  const tramosThreeQ = Math.ceil(tbTresCuartos/5.6 * 1.15);
+  const tramosOne = Math.ceil(tbUna/5.6 * 1.15);
+  const conduit = gn('tb-conduit');
+  const tramosConduit = Math.ceil(conduit/3 * 1.15);
+  const cajPaso = gn('tb-cajas');
+  if(totalTuberia>0){
+    document.getElementById('tuberias-resultado').innerHTML = `
+      <div class="ibox orange">
+        <strong>Tubería Schedule 40 (tramos de 5.6m):</strong><br>
+        • 1/2": ${tbMedio}m → <strong>${tramosHalf} tramos</strong> (+15% desperdicio)<br>
+        • 3/4": ${tbTresCuartos}m → <strong>${tramosThreeQ} tramos</strong><br>
+        • 1": ${tbUna}m → <strong>${tramosOne} tramos</strong><br>
+        <strong>Tubería eléctrica conduit (tramos de 3m):</strong><br>
+        • ${conduit}m → <strong>${tramosConduit} tramos</strong> (+15%)<br>
+        • Cajas de paso: <strong>${cajPaso}</strong>
+      </div>`;
+  }
 
   // TIEMPO
-  const hDia=gn('l-horas-dia')||10,tecnicos=gn('l-tecnicos')||2,diasSem=gn('l-dias-sem')||5;
-  let horas=0;
-  horas+=totalCarretes*1.5;
-  horas+=sel.filter(f=>f.tipo==='piston').length*2;
-  horas+=sel.filter(f=>f.tipo==='membrana'||f.tipo==='recuperador').length*2;
-  horas+=sel.filter(f=>f.tipo==='engrasadora').length*1.5;
-  horas+=(totalUvalve+udat+utank)*1;
-  horas+=(tbM+tbTQ+tbU)*0.3;
-  horas+=10; // pruebas y config NEXU
-  horas+=2;  // capacitación
-  const hPorTec=horas/tecnicos;
-  const diasTrab=Math.ceil(hPorTec/hDia);
-  const semanas=Math.ceil(diasTrab/diasSem);
-  const elTI=document.getElementById('tiempo-resultado');
-  if(elTI) elTI.innerHTML=`<div class="ibox green"><strong>Estimación de tiempo:</strong><br>• Horas totales: <strong>${Math.round(horas)} horas</strong><br>• Con ${tecnicos} técnico(s): <strong>${Math.round(hPorTec)} horas/técnico</strong><br>• Días estimados: <strong>${diasTrab} días</strong> · Semanas: <strong>${semanas}</strong></div>`;
+  const horasDia = gn('l-horas-dia')||10;
+  const tecnicos = gn('l-tecnicos')||2;
+  const diasSem = gn('l-dias-sem')||5;
+  let horasTotales = 0;
+  horasTotales += totalCarretes * TIEMPO_EST.por_carrete;
+  horasTotales += totalBombas * TIEMPO_EST.por_bomba;
+  horasTotales += (uvalve + udat + utank) * TIEMPO_EST.por_nexu_componente;
+  horasTotales += totalTuberia * TIEMPO_EST.tuberia_por_metro;
+  horasTotales += TIEMPO_EST.pruebas_generales;
+  horasTotales += TIEMPO_EST.configuracion_nexu;
+  horasTotales += TIEMPO_EST.capacitacion;
+  if(gv('eq-fijacion')==='portico') horasTotales += TIEMPO_EST.estructura_portico * Math.ceil(totalCarretes/6);
+  const horasPorTecnico = horasTotales / tecnicos;
+  const diasTrabajo = Math.ceil(horasPorTecnico / horasDia);
+  const semanasEstimadas = Math.ceil(diasTrabajo / diasSem);
+  document.getElementById('tiempo-resultado').innerHTML = `
+    <div class="ibox green">
+      <strong>Estimación de tiempo:</strong><br>
+      • Horas totales de trabajo: <strong>${Math.round(horasTotales)} horas</strong><br>
+      • Con ${tecnicos} técnico(s): <strong>${Math.round(horasPorTecnico)} horas/técnico</strong><br>
+      • Días de trabajo estimados: <strong>${diasTrabajo} días</strong><br>
+      • Semanas estimadas: <strong>${semanasEstimadas} semana(s)</strong>
+    </div>`;
 
-  // COSTO
-  const noches=gn('l-noches'),cTraslado=gn('l-costo-traslado'),cHotel=gn('l-costo-hotel'),viaticos=gn('l-viaticos')||50;
-  const costoTotal=(cTraslado*tecnicos)+(cHotel*noches*tecnicos)+(viaticos*diasTrab*tecnicos);
+  // COSTO LOGÍSTICA
+  const noches = gn('l-noches');
+  const costoTraslado = gn('l-costo-traslado');
+  const costoHotel = gn('l-costo-hotel');
+  const viaticos = gn('l-viaticos')||50;
+  const costoTotal = (costoTraslado * tecnicos) + (costoHotel * noches * tecnicos) + (viaticos * diasTrabajo * tecnicos);
 
-  // RESUMEN
-  generarResumen(sel,totalCarretes,totalUvalve,udat,utank,fuentesPoder,tM,tTQ,tU,tCon,horas,diasTrab,semanas,tecnicos,costoTotal,voltaje);
+  // RESUMEN COMPLETO
+  generarResumen(selFluidos, totalCarretes, totalBombas, bombasMembrana, engrasadoras, uvalve, udat, utank, fuentesPoder, tramosHalf, tramosThreeQ, tramosOne, tramosConduit, cajPaso, horasTotales, diasTrabajo, semanasEstimadas, tecnicos, costoTotal, voltaje);
 }
 
-function generarResumen(sel,totalCarretes,totalUvalve,udat,utank,fuentesPoder,tM,tTQ,tU,tCon,horas,diasTrab,semanas,tecnicos,costoTotal,voltaje){
-  const mH={diurno:'Lun-Vie 7am-5pm (THP)',nocturno:'Nocturno',finde:'Fin de semana',mixto:'Mixto',continuo:'Continuo 24/7'};
-  const mT={auto:'Auto / Empresa',publico:'Transporte público',avion:'Vuelo / Avión',mixto:'Mixto'};
-  const mA={no:'No requerido',escalera:'Escalera',andamio:'Andamio',tijera:'Elevador tijera'};
+function generarResumen(selFluidos, totalCarretes, totalBombas, bombasMembrana, engrasadoras, uvalve, udat, utank, fuentesPoder, tramosHalf, tramosThreeQ, tramosOne, tramosConduit, cajPaso, horasTotales, diasTrabajo, semanasEstimadas, tecnicos, costoTotal, voltaje){
+  const cliente = gv('p-cliente')||'—';
+  const proyecto = gv('p-nombre')||'—';
+  const orden = gv('p-orden')||'—';
+  const fecha = gv('p-fecha')||'—';
+  const tecnico = gv('p-tecnico')||'—';
+  const ciudad = gv('p-ciudad')||'—';
 
-  const html=`<div style="background:linear-gradient(135deg,var(--blue-dark),var(--blue));border-radius:14px;padding:20px;color:white;margin-bottom:14px;">
-    <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;margin-bottom:16px;">📊 RESUMEN DE LEVANTAMIENTO TÉCNICO</h2>
-    <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;margin-bottom:12px;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:8px;">📋 Datos del Proyecto</div>
-      ${rR('Proyecto',gv('p-nombre')||'—')}${rR('Cliente',gv('p-cliente')||'—')}${rR('Orden',gv('p-orden')||'—')}${rR('Ciudad',gv('p-ciudad')||'—')}${rR('Fecha',gv('p-fecha')||'—')}${rR('Técnico',gv('p-tecnico')||'—')}
-    </div>
-    <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;margin-bottom:12px;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:8px;">🏭 Taller</div>
-      ${rR('Dimensiones',gn('t-largo')+'m × '+gn('t-ancho')+'m × '+gn('t-altura')+'m')}
-      ${rR('Bahías / Puestos',gn('t-bahias')+' uds')}
-      ${rR('Área técnica separada',gv('t-area-tec')==='si'?'Sí · '+gn('t-distancia')+'m de distancia':'No')}
-    </div>
-    <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;margin-bottom:12px;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:8px;">🛢️ Fluidos (${sel.length})</div>
-      ${sel.map(f=>rR(f.nombre,'Rel. '+f.rel+' · '+gn(f.id+'-dep')+' depósito(s) · '+gn(f.id+'-cap')+'L')).join('')}
-    </div>
-    <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;margin-bottom:12px;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:8px;">⚙️ Equipos SAMOA</div>
-      ${rR('Enrolladores / Carretes',totalCarretes+' uds')}
-      ${rR('Bombas neumáticas pistón',sel.filter(f=>f.tipo==='piston').length+' uds')}
-      ${rR('Bombas membrana / AdBlue',sel.filter(f=>f.tipo==='membrana').length+' uds')}
-      ${rR('Recuperadores aceite usado',sel.filter(f=>f.tipo==='recuperador').length+' uds')}
-      ${rR('Engrasadoras',sel.filter(f=>f.tipo==='engrasadora').length+' uds')}
-      ${rR('Pistolas sin contador',gn('eq-pistolas-sc')+' uds')}
-      ${rR('Pistolas contador mecánico',gn('eq-pistolas-cm')+' uds')}
-      ${rR('Pistolas contador electrónico',gn('eq-pistolas-ce')+' uds')}
-      ${rR('Pistolas de grasa',gn('eq-pistolas-grasa')+' uds')}
-      ${rR('Tipo de fijación carretes',gv('eq-fijacion')||'—')}
-      ${rR('Longitud manguera',gv('eq-long-manguera')+'m')}
-      ${rR('Distancia entre carretes',gn('eq-dist-carretes')+'m')}
-    </div>
-    <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;margin-bottom:12px;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:8px;">💻 Sistema NEXU</div>
-      ${rR('U·net',1+' ud (central)')}${rR('U·meter (contadores)',totalCarretes+' uds')}${rR('U·valve (electroválvulas)',totalUvalve+' uds')}${rR('U·dat (teclados)',udat+' uds')}${rR('U·tank (nivel)',utank+' uds')}${rR('Fuentes de poder',fuentesPoder+' uds (1 cada 8)')}${rR('Voltaje',voltaje+'V')}${rR('Comunicación',gv('eq-com')||'—')}
-    </div>
-    <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;margin-bottom:12px;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:8px;">🔩 Materiales</div>
-      ${tM>0?rR('Tubería 1/2" Sch.40',tM+' tramos de 5.6m'):''}
-      ${tTQ>0?rR('Tubería 3/4" Sch.40',tTQ+' tramos de 5.6m'):''}
-      ${tU>0?rR('Tubería 1" Sch.40',tU+' tramos de 5.6m'):''}
-      ${rR('Codos 90°',gn('tb-codos90')+' uds')}${rR('Codos 45°',gn('tb-codos45')+' uds')}${rR('Tés (T)',gn('tb-tes')+' uds')}${rR('Llaves de paso',gn('tb-llaves')+' uds')}${rR('Uniones',gn('tb-uniones')+' uds')}
-      ${tCon>0?rR('Conduit eléctrico',tCon+' tramos de 3m'):''}${rR('Cajas de paso',gn('tb-cajas')+' uds')}
-      ${rR('Compresor',gv('eq-compresor-existe')==='si'?gn('eq-compresor-bar')+'bar / '+gn('eq-compresor-caudal')+'L/min':'INSTALAR NUEVO')}
-      ${rR('Acceso en altura',mA[gv('h-altura')]||'—')}
-    </div>
-    <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;margin-bottom:12px;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:8px;">⏱️ Tiempo y Logística</div>
-      ${rR('Técnicos en sitio',tecnicos+' persona(s)')}${rR('Horas totales',Math.round(horas)+' horas')}${rR('Días estimados',diasTrab+' días')}${rR('Semanas estimadas',semanas+' semana(s)')}${rR('Horario',mH[gv('l-horario')]||'—')}${rR('Traslado',mT[gv('l-traslado')]||'—')}${rR('Hotel',gv('l-hotel')==='si'?gn('l-noches')+' noches':'No requerido')}${costoTotal>0?rR('Costo logístico estimado','USD '+costoTotal.toLocaleString()):''}
-    </div>
-    ${gv('l-notas')?`<div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;"><div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:6px;">📝 Notas</div><div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.6">${gv('l-notas')}</div></div>`:''}
-    <div style="margin-top:14px;padding:10px;background:rgba(255,255,255,0.1);border-radius:8px;text-align:center;font-size:10px;color:rgba(255,255,255,0.6)">
-      Levantamiento generado por App Técnicos SAMOA · THP Group International · asistenciagerencia@thpgroupinternational.com
-    </div>
-  </div>`;
-  const el=document.getElementById('resumen-completo');
-  if(el) el.innerHTML=html;
+  const modeTraslado = {auto:'Auto / Empresa',publico:'Transporte público',avion:'Vuelo / Avión',mixto:'Mixto'};
+  const modeHorario = {diurno:'Lun-Vie 7am-5pm',nocturno:'Nocturno',finde:'Fin de semana',mixto:'Mixto',continuo:'Continuo'};
+  const modeAltura = {no:'No requerido',escalera:'Escalera',andamio:'Andamio',tijera:'Elevador tijera'};
+
+  const html = `
+    <div style="background:linear-gradient(135deg,var(--blue-dark),var(--blue));border-radius:14px;padding:20px;color:white;margin-bottom:14px;">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;margin-bottom:16px;">📊 RESUMEN DE LEVANTAMIENTO TÉCNICO</h2>
+      
+      <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;margin-bottom:14px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:8px;">📋 Datos del Proyecto</div>
+        ${rRow('Proyecto',proyecto)}${rRow('Cliente',cliente)}${rRow('Orden',orden)}${rRow('Ciudad',ciudad)}${rRow('Fecha',fecha)}${rRow('Técnico',tecnico)}
+      </div>
+
+      <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;margin-bottom:14px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:8px;">🛢️ Fluidos (${selFluidos.length})</div>
+        ${selFluidos.map(f=>`${rRow(f.nombre,'Rel. '+f.rel)}`).join('')}
+      </div>
+
+      <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;margin-bottom:14px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:8px;">⚙️ Equipos SAMOA</div>
+        ${rRow('Enrolladores / Carretes',totalCarretes+' uds')}
+        ${rRow('Bombas neumáticas de pistón',totalBombas+' uds')}
+        ${rRow('Bombas de membrana',bombasMembrana+' uds')}
+        ${rRow('Engrasadoras',engrasadoras+' uds')}
+        ${rRow('Pistolas sin contador',gn('eq-pistolas-sc')+' uds')}
+        ${rRow('Pistolas contador mecánico',gn('eq-pistolas-cm')+' uds')}
+        ${rRow('Pistolas contador electrónico',gn('eq-pistolas-ce')+' uds')}
+        ${rRow('Pistolas de grasa',gn('eq-pistolas-grasa')+' uds')}
+        ${rRow('Tipo de fijación',gv('eq-fijacion')||'—')}
+        ${rRow('Longitud manguera carrete',gv('eq-long-manguera')+'m')}
+      </div>
+
+      <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;margin-bottom:14px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:8px;">💻 Sistema NEXU</div>
+        ${rRow('U·net (unidad central)','1 ud')}
+        ${rRow('U·meter (contadores)',totalCarretes+' uds')}
+        ${rRow('U·valve (electroválvulas)',uvalve+' uds')}
+        ${rRow('U·dat (teclados)',udat+' uds')}
+        ${rRow('U·tank (nivel depósitos)',utank+' uds')}
+        ${rRow('Fuentes de poder',fuentesPoder+' uds (1 cada 8 carretes)')}
+        ${rRow('Voltaje',voltaje+'V')}
+        ${rRow('Comunicación',gv('eq-com')||'—')}
+      </div>
+
+      <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;margin-bottom:14px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:8px;">🔩 Materiales</div>
+        ${tramosHalf>0?rRow('Tubería 1/2" Sch.40',tramosHalf+' tramos de 5.6m'):''}
+        ${tramosThreeQ>0?rRow('Tubería 3/4" Sch.40',tramosThreeQ+' tramos de 5.6m'):''}
+        ${tramosOne>0?rRow('Tubería 1" Sch.40',tramosOne+' tramos de 5.6m'):''}
+        ${rRow('Codos 90°',gn('tb-codos90')+' uds')}
+        ${rRow('Codos 45°',gn('tb-codos45')+' uds')}
+        ${rRow('Tés (T)',gn('tb-tes')+' uds')}
+        ${rRow('Llaves de paso',gn('tb-llaves')+' uds')}
+        ${rRow('Uniones',gn('tb-uniones')+' uds')}
+        ${tramosConduit>0?rRow('Conduit eléctrico',tramosConduit+' tramos de 3m'):''}
+        ${cajPaso>0?rRow('Cajas de paso',cajPaso+' uds'):''}
+        ${rRow('Compresor',gv('eq-compresor-existe')==='si'?`Existente ${gn('eq-compresor-bar')} bar / ${gn('eq-compresor-caudal')} L/min`:'INSTALAR NUEVO')}
+      </div>
+
+      <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;margin-bottom:14px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:8px;">⏱️ Tiempo y Logística</div>
+        ${rRow('Técnicos en sitio',tecnicos+' persona(s)')}
+        ${rRow('Horas totales estimadas',Math.round(horasTotales)+' horas')}
+        ${rRow('Días de trabajo estimados',diasTrabajo+' días')}
+        ${rRow('Semanas estimadas',semanasEstimadas+' semana(s)')}
+        ${rRow('Horario',modeHorario[gv('l-horario')]||gv('l-horario'))}
+        ${rRow('Traslado',modeTraslado[gv('l-traslado')]||gv('l-traslado'))}
+        ${rRow('Alojamiento',gv('l-hotel')==='si'?gn('l-noches')+' noches':'No requerido')}
+        ${rRow('Acceso en altura',modeAltura[gv('h-altura')]||'—')}
+        ${costoTotal>0?rRow('Costo logístico estimado','USD '+costoTotal.toLocaleString()):''}
+      </div>
+
+      ${gv('l-notas')?`<div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:14px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);margin-bottom:8px;">📝 Notas</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.85);line-height:1.6">${gv('l-notas')}</div>
+      </div>`:''}
+
+      <div style="margin-top:16px;padding:12px;background:rgba(255,255,255,0.1);border-radius:8px;text-align:center;font-size:11px;color:rgba(255,255,255,0.6)">
+        Levantamiento generado por App Técnicos SAMOA · THP Group International<br>
+        asistenciagerencia@thpgroupinternational.com
+      </div>
+    </div>`;
+
+  document.getElementById('resumen-completo').innerHTML = html;
 }
 
-function rR(l,v){return `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:12px"><span style="color:rgba(255,255,255,0.7)">${l}</span><span style="font-weight:600">${v}</span></div>`;}
+function rRow(label, value){
+  return `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:12px"><span style="color:rgba(255,255,255,0.7)">${label}</span><span style="font-weight:600">${value}</span></div>`;
+}
 
+// ═══ PRINT ═══
 function imprimirResumen(){
   calcular();
-  const content=document.getElementById('resumen-completo').innerHTML;
-  const pd=document.createElement('div');
-  pd.id='print-area';pd.innerHTML=content;pd.style.display='none';
-  document.body.appendChild(pd);
-  const ps=document.createElement('style');
-  ps.id='print-style';
-  ps.innerHTML='@media print{body>*:not(#print-area){display:none!important;}#print-area{display:block!important;padding:20px;}#print-area>div{background:white!important;color:#1a2540!important;box-shadow:none!important;}#print-area span{color:#1a2540!important;}}';
-  document.head.appendChild(ps);
+  const content = document.getElementById('resumen-completo').innerHTML;
+  const printDiv = document.createElement('div');
+  printDiv.id='print-area'; printDiv.innerHTML=content; printDiv.style.display='none';
+  document.body.appendChild(printDiv);
+  const style = document.createElement('style');
+  style.id='print-style';
+  style.innerHTML='@media print{body>*:not(#print-area){display:none!important;}#print-area{display:block!important;} #print-area>div{background:white!important;color:#1a2540!important;box-shadow:none!important;} #print-area span{color:#1a2540!important;}}';
+  document.head.appendChild(style);
   window.print();
-  setTimeout(()=>{document.getElementById('print-area')?.remove();document.getElementById('print-style')?.remove();},2000);
+  setTimeout(()=>{ document.getElementById('print-area')?.remove(); document.getElementById('print-style')?.remove(); },2000);
 }
 
+// ═══ RESET ═══
 function resetTodo(){
   if(!confirm('¿Reiniciar todo el levantamiento?')) return;
-  document.querySelectorAll('input[type=text],input[type=number],textarea').forEach(el=>{if(el.id!=='p-fecha')el.value='';});
-  document.querySelectorAll('input[type=checkbox]').forEach(el=>{el.checked=el.defaultChecked;});
+  document.querySelectorAll('input[type=text],input[type=number],textarea').forEach(el=>{ if(el.id!=='p-fecha') el.value=''; });
+  document.querySelectorAll('input[type=checkbox]').forEach(el=>{ el.checked=el.defaultChecked; });
   document.getElementById('resumen-completo').innerHTML='';
   calcular();
   showToast('↺ Levantamiento reiniciado');
 }
 
+// ═══ EMAIL LEVANTAMIENTO ═══
+function enviarLevantamiento(){
+  calcular();
+  const proyecto=gv('p-nombre')||'—';
+  const cliente=gv('p-cliente')||'—';
+  const orden=gv('p-orden')||'—';
+  const ciudad=gv('p-ciudad')||'—';
+  const fecha=gv('p-fecha')||'—';
+  const tecnico=gv('p-tecnico')||'—';
+  const sel=FLUIDOS.filter(f=>gc(f.id));
+  const totalCarretes=sel.filter(f=>f.tipo!=='engrasadora').reduce((a,f)=>a+gn(f.id+'-dep')||1,0)+gn('eq-carretes-extra');
+  const uvalve=totalCarretes+gn('eq-uvalve');
+  const fuentesPoder=Math.ceil((totalCarretes+uvalve)/8)||1;
+  const horasDia=gn('l-horas-dia')||10;
+  const tecnicos=gn('l-tecnicos')||2;
+  const diasSem=gn('l-dias-sem')||5;
+  let horas=totalCarretes*1.5+sel.length*2+(uvalve+gn('eq-udat')+gn('eq-utank'))*1+(gn('tb-medio')+gn('tb-tres-cuartos')+gn('tb-una'))*0.3+12;
+  const diasTrab=Math.ceil((horas/tecnicos)/horasDia);
+
+  const fluidos=sel.map(f=>`${f.nombre} (Rel. ${f.rel} · ${gn(f.id+'-dep')} depósito)`).join('\n');
+
+  const asunto=`Levantamiento Técnico SAMOA - ${cliente} - ${proyecto} - ${fecha}`;
+  let cuerpo=`LEVANTAMIENTO TÉCNICO SAMOA\n`;
+  cuerpo+=`===========================\n`;
+  cuerpo+=`Proyecto: ${proyecto}\n`;
+  cuerpo+=`Cliente: ${cliente}\n`;
+  cuerpo+=`Orden: ${orden}\n`;
+  cuerpo+=`Ciudad: ${ciudad}\n`;
+  cuerpo+=`Fecha: ${fecha}\n`;
+  cuerpo+=`Técnico: ${tecnico}\n\n`;
+  cuerpo+=`FLUIDOS (${sel.length})\n${fluidos}\n\n`;
+  cuerpo+=`EQUIPOS SAMOA\n`;
+  cuerpo+=`Carretes: ${totalCarretes}\n`;
+  cuerpo+=`U·valve: ${uvalve}\n`;
+  cuerpo+=`Fuentes de poder: ${fuentesPoder}\n`;
+  cuerpo+=`Teclados U·dat: ${gn('eq-udat')||Math.ceil((gn('t-bahias')||1)/4)}\n\n`;
+  cuerpo+=`TIEMPO ESTIMADO\n`;
+  cuerpo+=`Técnicos: ${tecnicos}\n`;
+  cuerpo+=`Días estimados: ${diasTrab}\n`;
+  cuerpo+=`Horario: ${gv('l-horario')||'—'}\n`;
+  cuerpo+=`Traslado: ${gv('l-traslado')||'—'}\n`;
+  if(gv('l-notas')) cuerpo+=`\nNOTAS\n${gv('l-notas')}\n`;
+  cuerpo+=`\n---\nGenerado por App Levantamiento Técnico SAMOA\nTHP Group International`;
+
+  const mailtoLink=`mailto:asistenciagerencia@thpgroupinternational.com?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+  window.open(mailtoLink,'_blank');
+  showToast('📧 Abriendo correo...');
+}
+
+// ═══ TOAST ═══
 let tt;
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2800);}
+function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),2800); }
 </script>
 </body>
 </html>
